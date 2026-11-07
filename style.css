@@ -1,0 +1,268 @@
+/* ==============================================================
+   style.css - external stylesheet (Chapter 3 CSS, Lab 2, Lab 4)
+   Design: cream + coffee brown, sidebar on the left, rounded cards.
+   Layout uses FLOAT (Chapter 3), not flexbox or grid.
+   ============================================================== */
+
+/* ---------- colours used ----------
+   page background  #f3e6dd   (blush cream)
+   panels           #fdf8f4   (light cream)
+   light beige      #f1dccf   (active link, cup box)
+   coffee brown     #6f4630   (buttons, headings)
+   gold             #e7a83a   (stars)
+   ------------------------------------ */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3e6dd;
+    color: #4a3226;
+}
+
+h1, h2, h3 {
+    font-family: Georgia, Cambria, "Times New Roman", serif;   /* serif headings like the design */
+    color: #4a2e20;
+}
+
+/* ================= SIDEBAR ================= */
+#sidebar {
+    float: left;                          /* Chapter 3: float - sidebar on the left */
+    width: 200px;
+    min-height: 640px;
+    margin: 0 0 20px 20px;                /* TRBL shortcut: top right bottom left */
+    padding: 20px 15px;
+    background-color: #fdf8f4;
+    border: 1px solid #ead8cc;
+    border-radius: 18px;
+}
+
+.logo {
+    font-size: 24px;
+    margin: 0 0 25px 10px;
+}
+
+#sidebar ul {                             /* descendant selector */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    margin-bottom: 6px;
+}
+
+#sidebar a {
+    display: block;                       /* the whole row is clickable */
+    padding: 10px 14px;
+    color: #4a3226;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#sidebar a:hover {                        /* pseudo-class */
+    background-color: #f7e8dd;
+}
+
+#sidebar a.active {                       /* the page we are on (class added by PHP) */
+    background-color: #f1dccf;
+    font-weight: bold;
+}
+
+/* ================= MAIN AREA ================= */
+main {
+    margin: 40px 20px 20px 260px;         /* left margin leaves space for the floated sidebar */
+}
+
+.panel {
+    background-color: #fdf8f4;
+    border: 1px solid #ead8cc;
+    border-radius: 18px;
+    padding: 25px 35px;
+    min-height: 630px;
+}
+
+.panel h2 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.hint {
+    color: #8a7064;
+}
+
+/* ================= ADD / EDIT FORM ================= */
+.photo-column {
+    float: left;                          /* picture column on the left */
+    width: 200px;
+}
+
+.photo-preview {
+    margin: 0 0 15px 0;
+    height: 180px;
+    background-color: #f1dccf;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.big-cup {
+    font-size: 90px;
+    line-height: 180px;                   /* centres the cup vertically */
+}
+
+.fields-column {
+    margin-left: 235px;                   /* next to the floated photo column */
+}
+
+.fields-column p {
+    margin: 0 0 16px 0;
+}
+
+label, .field-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #4a2e20;
+}
+
+select, textarea {
+    width: 100%;
+    margin-top: 6px;
+    padding: 9px 12px;
+    border: 1px solid #e2cbbd;
+    border-radius: 8px;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #4a3226;
+    box-sizing: border-box;               /* width includes padding and border */
+}
+
+.msg {                                    /* JavaScript messages next to the fields */
+    color: #c0392b;
+    font-size: 13px;
+}
+
+/* ================= STARS ================= */
+.star, .rate-star {
+    font-size: 28px;
+    color: #e3d3c7;                       /* empty star */
+    cursor: pointer;
+}
+
+.on {
+    color: #e7a83a;                       /* coloured star */
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6f4630;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #8a5a3e;
+}
+
+.btn.small {                              /* small brown link-button */
+    width: auto;
+    padding: 6px 12px;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.btn-light, .btn-delete {
+    padding: 6px 16px;
+    border: 1px solid #6f4630;
+    border-radius: 8px;
+    background-color: white;
+    color: #6f4630;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-delete {
+    border-color: #c0392b;
+    color: #c0392b;
+}
+
+.btn-light:hover {
+    background-color: #f1dccf;
+}
+
+.btn-delete:hover {
+    background-color: #fdecea;
+}
+
+/* ================= EXPERIENCE CARDS ================= */
+.card {
+    background-color: white;
+    border: 1px solid #ead8cc;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 18px;
+    overflow: hidden;                     /* the card grows around the floated photo */
+}
+
+.card-photo {
+    float: left;                          /* photo on the left of the card */
+    width: 150px;
+    height: 130px;
+    margin: 0;
+    background-color: #f1dccf;
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.card-photo .big-cup {
+    font-size: 60px;
+    line-height: 130px;
+}
+
+.card-text {
+    margin-left: 170px;                   /* next to the floated photo */
+}
+
+.card-text h3 {
+    margin: 0 0 4px 0;
+    font-size: 19px;
+}
+
+.card-text p {
+    margin: 4px 0;
+}
+
+.actions {
+    margin-top: 8px;
+}
+
+.delete-form {
+    display: inline;                      /* Delete button next to Edit */
+}
+
+/* ================= MESSAGES ================= */
+.error {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.flash {
+    background-color: #e9f4ea;
+    color: #2e7d32;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#ajaxMessage {
+    color: #2e7d32;
+    font-weight: bold;
+}
