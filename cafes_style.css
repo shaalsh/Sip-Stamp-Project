@@ -1,0 +1,22 @@
+/* SipStamp - Student 2 standalone testing style */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #4b3024; background: #f8f1e9; }
+.site-header { background: #6f4630; color: #fffaf6; padding: 18px 7%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.brand { font-size: 25px; font-weight: bold; }
+.brand small { display: block; font-size: 12px; font-weight: normal; color: #f1dccf; }
+.site-header nav a { color: #fffaf6; text-decoration: none; margin-right: 18px; }
+.site-header nav a.current { text-decoration: underline; font-weight: bold; }
+.container { max-width: 850px; margin: 35px auto; padding: 0 18px; }
+.panel { background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 5px 20px #6f463015; }
+.panel h2 { margin-top: 0; }
+.hint { color: #80685c; }
+a { color: #6f4630; }
+/* Student 2 - paste these styles at the END of the group's style.css */
+.cafe-search { width: 90%; padding: 12px; border: 1px solid #d9bfae; border-radius: 10px; margin: 10px 0 22px; background: #fff; }
+.cafe-item { background: #fffaf6; border: 1px solid #ead8cc; border-radius: 15px; padding: 18px; margin-bottom: 15px; overflow: auto; }
+.cafe-emoji { float: left; width: 95px; height: 105px; background: #f1dccf; border-radius: 12px; text-align: center; line-height: 105px; font-size: 45px; }
+.cafe-info { margin-left: 115px; }
+.cafe-info h3 { margin: 0 0 7px; }
+.cafe-info p { margin: 5px 0; color: #80685c; }
+.favorite-btn { margin-top: 12px; background: #6f4630; color: white; border: 0; border-radius: 9px; padding: 10px 14px; cursor: pointer; }
+.favorite-btn:hover { background: #4a2e20; }
