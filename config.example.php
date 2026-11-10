@@ -1,9 +1,9 @@
 <?php
-// config.example.php - copy this file, rename the copy to config.php, and put the real login in it
+// Example database connection settings.
 define("DBHOST", "sql7.freesqldatabase.com");
 define("DBUSER", "your_username");
 define("DBPASS", "your_password");
 define("DBNAME", "your_database_name");
-// Set this to 1 only for local testing without the login pages. Keep it 0 for real accounts.
+// A positive DEMO_USER_ID enables a local test account; 0 requires a login session.
 define("DEMO_USER_ID", 0);
 ?>

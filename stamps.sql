@@ -1,4 +1,4 @@
--- Add the passport table without removing any of the group's existing tables.
+-- Create the stamps table without removing existing tables.
 CREATE TABLE IF NOT EXISTS stamps (
     id INT AUTO_INCREMENT PRIMARY KEY,
     experience_id INT NOT NULL UNIQUE,

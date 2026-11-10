@@ -1,4 +1,4 @@
-/* Keep the same colours, headings and rounded cards used in the experience pages. */
+/* Shared colours and spacing for the dashboard, passport and profile. */
 .member-panel { min-height: 630px; border: none; }
 .member-page #sidebar { border: none; }
 .member-panel .card { border: none; box-shadow: none; }

@@ -7,7 +7,7 @@ if (!is_file(__DIR__ . "/config.php")) {
 }
 require_once __DIR__ . "/config.php";
 
-// Demo mode is only used locally until the group's login pages are ready.
+// Demo mode uses a local test account when DEMO_USER_ID is enabled.
 if (!isset($_SESSION["user_id"]) && defined("DEMO_USER_ID") && DEMO_USER_ID > 0) {
     $_SESSION["user_id"] = (int) DEMO_USER_ID;
 }
