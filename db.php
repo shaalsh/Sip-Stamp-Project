@@ -1,10 +1,9 @@
 <?php
-// db.php - connects to the database (every page includes this file)
-// the login is in config.php, which stays on our laptops and is not uploaded to GitHub
+// Connect to the database using the local connection settings
 
 require_once "config.php";
 
-// Report query errors so a failed experience or stamp can be rolled back together.
+// Report query errors so the experience and stamp can be rolled back together if saving fails
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
@@ -13,7 +12,7 @@ if (mysqli_connect_errno()) {
 }
 mysqli_set_charset($connection, "utf8mb4");
 
-// TEMPORARY: until Student 1's login is ready, pretend user 1 is logged in
+// Use user 1 as a temporary test account when there is no login session
 if (!isset($_SESSION["user_id"])) {
     $_SESSION["user_id"] = 1;
 }

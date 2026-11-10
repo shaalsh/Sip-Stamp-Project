@@ -2,7 +2,7 @@ $(document).ready(function () {
     var content = $("#passportContent");
     var loading = false;
 
-    // Get the latest stamp count from PHP and update this section without reloading the page.
+    // Get the latest stamp count from PHP and update this section without reloading the page
     function refreshProgress() {
         if (loading || content.length === 0) {
             return;
@@ -22,7 +22,7 @@ $(document).ready(function () {
         });
     }
 
-    // Check again while the page is open in case an experience was added in another tab.
+    // Check for new stamps while the page is open
     if (content.length > 0) {
         setInterval(function () {
             if (!document.hidden) {
@@ -30,7 +30,7 @@ $(document).ready(function () {
             }
         }, 15000);
 
-        // Update immediately when the user returns after adding an experience in another tab.
+        // Update the stamps when the user comes back after adding an experience in another tab
         $(window).on("focus", refreshProgress);
         $(document).on("visibilitychange", function () {
             if (!document.hidden) {
@@ -39,7 +39,7 @@ $(document).ready(function () {
         });
     }
 
-    // Keep the name fixed until the user clicks the pencil. The email stays read-only.
+    // Allow the name to be edited after clicking the pencil while the email stays fixed
     var profileForm = $("#profileForm");
     if (profileForm.length > 0) {
         var editing = profileForm.attr("data-editing") === "true";

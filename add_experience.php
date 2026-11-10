@@ -1,12 +1,12 @@
 <?php
-// add_experience.php - add a new coffee experience (CREATE)
+// Save a new coffee experience
 
 session_start();
 require_once "db.php";
 
 $message = "";
 
-// when the form is submitted
+// Read the experience details when the form is submitted
 if (isset($_POST["cafe_id"])) {
     $cafeId  = (int) $_POST["cafe_id"];
     $drink   = trim($_POST["drink"]);
@@ -17,7 +17,7 @@ if (isset($_POST["cafe_id"])) {
     if ($cafeId <= 0 || $drink == "" || $stars < 1 || $stars > 5 || $comment == "") {
         $message = "Please fill in all the fields.";
     } else {
-        // Save the experience and its stamp together so neither is left without the other.
+        // Save the experience and its stamp together so both are added successfully
         mysqli_begin_transaction($connection);
         try {
             $statement = mysqli_prepare($connection,
@@ -27,7 +27,7 @@ if (isset($_POST["cafe_id"])) {
             $experienceId = mysqli_insert_id($connection);
             mysqli_stmt_close($statement);
 
-            // Save the new experiences.id in experience_id in the stamps table.
+            // Save the new id from experiences in experience_id in the stamps table
             $statement = mysqli_prepare($connection, "INSERT INTO stamps (experience_id) VALUES (?)");
             mysqli_stmt_bind_param($statement, "i", $experienceId);
             mysqli_stmt_execute($statement);
@@ -44,7 +44,7 @@ if (isset($_POST["cafe_id"])) {
     }
 }
 
-// data for the drop-down lists
+// Get the cafes and drinks shown in the dropdown lists
 $cafes  = mysqli_query($connection, "SELECT id, name FROM cafes ORDER BY name");
 $drinks = array("Espresso", "Americano", "Cappuccino", "Spanish Latte", "Flat White", "V60", "Coffee of the Day", "Matcha");
 

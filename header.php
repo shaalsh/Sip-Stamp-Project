@@ -1,5 +1,5 @@
 <?php
-// header.php - the top of every page (sidebar). Each page sets $pageTitle and $activePage first.
+// Show the shared sidebar and highlight the link for the current page
 ?>
 <!DOCTYPE html>
 <html lang="en">

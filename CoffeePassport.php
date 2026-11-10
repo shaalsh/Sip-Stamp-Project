@@ -10,7 +10,7 @@ class CoffeePassport {
     }
 
     public function getStats() {
-        // Use user_id in experiences to count only this user's experiences and cafés.
+        // Use user_id in experiences to count the experiences and different cafes for this user
         $statement = mysqli_prepare($this->connection,
             "SELECT COUNT(*) AS experiences, COUNT(DISTINCT cafe_id) AS cafes
              FROM experiences WHERE user_id = ?");
@@ -19,7 +19,7 @@ class CoffeePassport {
         $stats = mysqli_fetch_assoc(mysqli_stmt_get_result($statement));
         mysqli_stmt_close($statement);
 
-        // stamps is linked to experiences through experience_id, so we can find the stamp's owner.
+        // Link experience_id in stamps to id in experiences to count stamps for this user
         $statement = mysqli_prepare($this->connection,
             "SELECT COUNT(*) AS total FROM stamps
              INNER JOIN experiences ON stamps.experience_id = experiences.id
@@ -47,7 +47,7 @@ class CoffeePassport {
     }
 
     public function getStamps() {
-        // Get the café name from the experience linked to each stamp.
+        // Get the cafe name from the experience linked to each stamp
         $statement = mysqli_prepare($this->connection,
             "SELECT cafes.name, stamps.stamped_at FROM stamps
              INNER JOIN experiences ON stamps.experience_id = experiences.id

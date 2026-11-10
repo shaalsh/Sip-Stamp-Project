@@ -7,7 +7,7 @@ if (!is_file(__DIR__ . "/config.php")) {
 }
 require_once __DIR__ . "/config.php";
 
-// Demo mode uses a local test account when DEMO_USER_ID is enabled.
+// Use a local test account when DEMO_USER_ID is enabled
 if (!isset($_SESSION["user_id"]) && defined("DEMO_USER_ID") && DEMO_USER_ID > 0) {
     $_SESSION["user_id"] = (int) DEMO_USER_ID;
 }
@@ -21,7 +21,7 @@ require_once __DIR__ . "/CoffeePassport.php";
 require_once __DIR__ . "/passport_helpers.php";
 $userId = (int) $_SESSION["user_id"];
 
-// Match the session's user_id with id in users before showing any account details.
+// Match user_id from the session with id in users to get the account details
 $statement = mysqli_prepare($connection,
     "SELECT id, name, email FROM users WHERE id = ?");
 mysqli_stmt_bind_param($statement, "i", $userId);

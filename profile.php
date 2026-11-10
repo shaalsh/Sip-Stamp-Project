@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = isset($_POST["name"]) && is_string($_POST["name"]) ? trim($_POST["name"]) : "";
     $token = isset($_POST["profile_token"]) && is_string($_POST["profile_token"]) ? $_POST["profile_token"] : "";
 
-    // Check that this form came from the user's session before changing their account.
+    // Check that the form belongs to the current session before saving the name
     if (!hash_equals($_SESSION["profile_token"], $token)) {
         http_response_code(403);
         $message = "Please reload the page and try again.";
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($message === "") {
         try {
-            // Update only name in users, using id to find this user's account.
+            // Update the name column in users using id to find the current account
             $statement = mysqli_prepare($connection,
                 "UPDATE users SET name = ? WHERE id = ?");
             mysqli_stmt_bind_param($statement, "si", $name, $userId);
