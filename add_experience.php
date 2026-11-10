@@ -17,17 +17,30 @@ if (isset($_POST["cafe_id"])) {
     if ($cafeId <= 0 || $drink == "" || $stars < 1 || $stars > 5 || $comment == "") {
         $message = "Please fill in all the fields.";
     } else {
-        // INSERT with a prepared statement
-        $statement = mysqli_prepare($connection,
-            "INSERT INTO experiences (user_id, cafe_id, drink, stars, comment) VALUES (?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($statement, "iisis", $userId, $cafeId, $drink, $stars, $comment);
-        mysqli_stmt_execute($statement);
+        // Save the experience and its stamp together so neither is left without the other.
+        mysqli_begin_transaction($connection);
+        try {
+            $statement = mysqli_prepare($connection,
+                "INSERT INTO experiences (user_id, cafe_id, drink, stars, comment) VALUES (?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($statement, "iisis", $userId, $cafeId, $drink, $stars, $comment);
+            mysqli_stmt_execute($statement);
+            $experienceId = mysqli_insert_id($connection);
+            mysqli_stmt_close($statement);
 
-        // STUDENT 4: add the stamp for this experience here
+            // Save the new experiences.id in experience_id in the stamps table.
+            $statement = mysqli_prepare($connection, "INSERT INTO stamps (experience_id) VALUES (?)");
+            mysqli_stmt_bind_param($statement, "i", $experienceId);
+            mysqli_stmt_execute($statement);
+            mysqli_stmt_close($statement);
+            mysqli_commit($connection);
 
-        $_SESSION["flash"] = "Your experience was added.";
-        header("Location: my_experiences.php");
-        exit;
+            $_SESSION["flash"] = "Your experience was added and you earned a stamp.";
+            header("Location: my_experiences.php");
+            exit;
+        } catch (mysqli_sql_exception $exception) {
+            mysqli_rollback($connection);
+            $message = "Your experience could not be saved. Please try again.";
+        }
     }
 }
 

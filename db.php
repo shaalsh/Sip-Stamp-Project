@@ -4,6 +4,8 @@
 
 require_once "config.php";
 
+// Report query errors so a failed experience or stamp can be rolled back together.
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
 if (mysqli_connect_errno()) {
