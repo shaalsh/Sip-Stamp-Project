@@ -48,8 +48,7 @@ include "header.php";
         <?php unset($_SESSION["flash"]); ?>
     <?php } ?>
 
-    <p class="hint">Click the stars to change a rating. <a href="add_experience.php" class="btn small">&#10010; Add Experience</a></p>
-    <p id="ajaxMessage"></p>
+    <p class="hint">Use Edit to update an experience or its rating. <a href="add_experience.php" class="btn small">&#10010; Add Experience</a></p>
 
     <?php foreach ($experiences as $exp) { ?>
         <article class="card" id="exp<?php echo $exp->getId(); ?>">

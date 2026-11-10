@@ -25,14 +25,14 @@ class Experience {
     public function getDrink()    { return $this->drink; }
     public function getComment()  { return $this->comment; }
 
-    // returns 5 stars: coloured ones for the rating, empty ones for the rest
+    // Show the saved rating without changing it from the experience card
     public function getStars() {
         $html = "";
-        for ($i = 1; $i <= 5; $i++) {
-            if ($i <= $this->stars) {
-                $html = $html . "<span class='rate-star on' data-id='" . $this->id . "' data-stars='" . $i . "'>&#9733;</span>";
+        for ($starNumber = 1; $starNumber <= 5; $starNumber++) {
+            if ($starNumber <= $this->stars) {
+                $html = $html . "<span class='rating-star on'>&#9733;</span>";
             } else {
-                $html = $html . "<span class='rate-star' data-id='" . $this->id . "' data-stars='" . $i . "'>&#9733;</span>";
+                $html = $html . "<span class='rating-star'>&#9733;</span>";
             }
         }
         return $html;

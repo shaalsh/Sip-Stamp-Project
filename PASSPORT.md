@@ -21,7 +21,9 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 
 Existing `db.php` and experience pages still contain Lama's temporary user-1 fallback. The authentication owner must remove that fallback when integrating real login/logout. New member pages check the session before including `db.php`, with demo access only when explicitly enabled locally.
 
-The café/favorites branch has not been merged here. These files are based on `feature/experiences`, with the approved member-page changes kept in `feature/passport`. No migration or test has been run against the online database.
+The café/favorites branch has not been merged here. These files are based on `feature/experiences`, with the approved member-page changes kept in `feature/passport`. The shared MySQL connection was checked and missing stamps were added for the two existing experiences without changing those experiences.
+
+The experience edit page now places Save Changes and Cancel on the same row. Ratings on My Experiences are display-only and are changed through Edit and Save Changes. The old direct rating endpoint no longer updates ratings.
 
 ## Review completed locally
 
@@ -29,7 +31,7 @@ The café/favorites branch has not been merged here. These files are based on `f
 - The actual passport class and view passed checks for empty accounts, separate user totals, distinct café counts, stamp backfill without duplicates, the ten-stamp goal and cascading deletion. These checks used a local SQLite query adapter, not a live MySQL connection.
 - HTTP checks ran the actual profile and add-experience handlers with the local adapter. Profile validation, form token checks, user isolation and paired experience/stamp inserts were checked. Photo upload is no longer part of the profile feature.
 - Dashboard, Passport and Profile were visually checked in a browser. AJAX refresh and client-side profile validation were checked there too. The narrow-screen statistics cards were adjusted so their text remains visible.
-- MySQL server compatibility and the shared data still need a real integration check after the local connection settings are filled in. The simulated review server uses sample data only.
+- The real MySQL connection, table structure, cascading stamp relationship and passport queries were checked successfully. The user also verified that adding an experience creates its stamp and deleting that test experience removes the stamp. The simulated review server uses separate sample data only.
 
 The main programming approach follows the course topics: HTML forms, external CSS with floats, JavaScript validation and DOM updates, PHP functions/classes/sessions, prepared MySQLi queries, transactions and jQuery AJAX. Session-bound form-token helpers protect profile updates; these individual helper functions may need additional explanation beyond the slide examples.
 

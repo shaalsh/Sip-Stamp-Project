@@ -142,7 +142,7 @@ select, textarea {
 }
 
 /* ================= STARS ================= */
-.star, .rate-star {
+.star, .rating-star {
     font-size: 28px;
     color: #e3d3c7;                       /* empty star */
     cursor: pointer;
@@ -150,6 +150,10 @@ select, textarea {
 
 .on {
     color: #e7a83a;                       /* coloured star */
+}
+
+.rating-star {
+    cursor: default;
 }
 
 /* ================= BUTTONS ================= */
@@ -195,6 +199,35 @@ select, textarea {
 
 .btn-light:hover {
     background-color: #f1dccf;
+}
+
+.experience-actions {
+    overflow: hidden;
+}
+
+.experience-actions .btn {
+    float: left;
+    box-sizing: border-box;
+    width: 74%;
+    height: 44px;
+    margin-right: 2%;
+}
+
+.fields-column .experience-actions .cancel {
+    float: left;
+    width: 24%;
+    margin: 0;
+}
+
+.experience-actions .btn-light {
+    display: block;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 6px;
+    line-height: 42px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
 
 .btn-delete:hover {

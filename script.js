@@ -57,21 +57,3 @@ window.onload = function () {
         }
     };
 };
-
-// jQuery AJAX: click a star on a card -> save the new rating without reloading
-$(document).ready(function () {
-    $(".rate-star").click(function () {
-        var id    = $(this).attr("data-id");
-        var stars = $(this).attr("data-stars");
-
-        $.get("rate.php?id=" + id + "&stars=" + stars, function (data) {
-            if (data == "ok") {
-                $("#exp" + id + " .rate-star").removeClass("on");
-                for (var i = 1; i <= stars; i++) {
-                    $("#exp" + id + " .rate-star[data-stars='" + i + "']").addClass("on");
-                }
-                $("#ajaxMessage").html("Rating saved: " + stars + " stars.");
-            }
-        });
-    });
-});

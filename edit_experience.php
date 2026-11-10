@@ -110,8 +110,10 @@ include "header.php";
                 <span id="commentMsg" class="msg"></span>
             </p>
 
-            <input type="submit" value="Save Changes" class="btn">
-            <p class="cancel"><a href="my_experiences.php" class="btn-light">Cancel</a></p>
+            <div class="experience-actions">
+                <input type="submit" value="Save Changes" class="btn">
+                <p class="cancel"><a href="my_experiences.php" class="btn-light">Cancel</a></p>
+            </div>
         </div>
     </form>
 </section>
