@@ -4,8 +4,8 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 
 ## Run locally
 
-1. Enter your database settings in the local `config.php`. If that file is missing on another computer, copy `config.example.php` to `config.php` first. Do not upload `config.php` to GitHub.
-2. In phpMyAdmin, select the existing project database and run `stamps.sql`. It keeps the existing tables and adds stamps for older experiences. If `stamps` already exists, it is kept. Do not import Lama's original `database.sql` over the shared database because it drops existing tables.
+1. Follow `LOCAL_SETUP.md` and import `database.sql` once into a new local setup. It creates `sip_stamp` with all five tables and sample data and does not drop existing tables. Do not reimport over an existing populated database.
+2. Copy `config.example.php` to the local `config.php` and match `DBPORT` to the MySQL port on that computer. Do not upload `config.php` to GitHub. The former online hosting account expired and the current setup uses local MySQL.
 3. For local testing before the login module is available, set `DEMO_USER_ID` to the ID of an existing test user in your local `config.php`. Leave it `0` when using real login sessions. The new pages read `$_SESSION["user_id"]` from the login module.
 4. Run `php -S localhost:8000` in the project folder, then open `http://localhost:8000/dashboard.php`.
 5. PHP needs MySQLi and mbstring. No profile upload folder or image-upload settings are needed.
@@ -22,6 +22,8 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 Existing `db.php` and experience pages still contain Lama's temporary user-1 fallback. The authentication owner must remove that fallback when integrating real login/logout. New member pages check the session before including `db.php`, with demo access only when explicitly enabled locally.
 
 The café/favorites branch has not been merged here. These files are based on `feature/experiences`, with the approved member-page changes kept in `feature/passport`. The shared MySQL connection was checked and missing stamps were added for the two existing experiences without changing those experiences.
+
+The local distribution database was restored and checked on XAMPP port 3307 with 14 cafes and two experiences with two stamps. Its schema matches the cafe and favorites queries currently in `tala-favorites`. The cafe pages themselves still need integration testing after their branch is merged. Future authentication schema changes must be coordinated with the team.
 
 The experience edit page now places Save Changes and Cancel on the same row. Ratings on My Experiences are display-only and are changed through Edit and Save Changes. The old direct rating endpoint no longer updates ratings.
 
