@@ -1,124 +1,76 @@
-/* Set the account panel height and remove its border */
 .member-panel { min-height: 630px; border: none; }
-/* Remove the sidebar border on the account pages */
 .member-page #sidebar { border: none; }
-/* Remove borders and shadows from cards on these pages */
 .member-panel .card { border: none; box-shadow: none; }
-/* Set the shared icon size alignment and coffee brown colour */
 .member-panel .passport-icon { width: 25px; height: 27px; vertical-align: middle; color: #6f4630; }
-/* Keep the floated statistic cards inside their row and set the row spacing */
 .member-panel .stats-row { overflow: hidden; margin: 25px -1% 5px; }
 /* Place the three statistic cards next to each other using floats and equal widths */
 .member-panel .stat-card { float: left; box-sizing: border-box; width: 31.33%; margin: 0 1% 18px; padding: 20px; }
-/* Place each statistic icon on the left with space around it */
 .member-panel .stat-card .passport-icon { float: left; margin: 7px 14px 15px 0; }
-/* Show statistic numbers as blocks using the main heading colour and serif font */
 .member-panel .stat-card strong { display: block; color: #4a2e20; font-family: Georgia, Cambria, serif; font-size: 28px; }
-/* Set the size and muted colour of the statistic labels */
 .member-panel .stat-card span { font-size: 14px; color: #8a7064; }
-/* Set the size and bottom spacing of passport progress text */
 .member-panel .passport-progress p { margin-bottom: 0; font-size: 14px; }
-/* Use a transparent background and small padding for the progress section */
 .member-panel .passport-progress { background: transparent; padding: 4px 0; }
-/* Keep the two floated stamp totals inside their container */
 .member-panel .stamp-totals { overflow: hidden; margin: 0 -1%; }
 /* Give each stamp total a white box with rounded corners and almost half the row width */
 .member-panel .stamp-total { float: left; box-sizing: border-box; width: 48%; margin: 0 1%; padding: 20px; border: none; border-radius: 12px; background: white; }
-/* Style stamp total numbers with the heading colour and serif font */
 .member-panel .stamp-total strong { display: block; margin-bottom: 8px; color: #4a2e20; font-family: Georgia, Cambria, serif; font-size: 28px; }
-/* Style the labels below the stamp totals */
 .member-panel .stamp-total span { color: #8a7064; font-size: 14px; }
-/* Use a smaller icon beside the badge message */
 .member-panel .passport-progress .passport-icon { width: 17px; height: 19px; margin-right: 5px; }
-/* Keep the action links inside their container and add space above them */
 .member-panel .progress-actions { overflow: hidden; margin: 24px 0 0; }
-/* Style action links as centred buttons using floats and matching widths */
 .member-panel .progress-actions .btn { float: left; box-sizing: border-box; width: 48%; margin: 0 2% 12px 0; text-align: center; font-family: Arial, Helvetica, sans-serif; }
 /* Make passport action buttons extend across the full row */
 .member-panel .passport-actions .btn { width: 100%; margin-right: 0; }
-/* Keep small action buttons aligned without extra left spacing */
 .member-panel a.btn.small { display: inline-block; box-sizing: border-box; margin-left: 0; }
-/* Show a faded appearance and waiting cursor for disabled buttons */
 .member-panel button:disabled { opacity: 0.6; cursor: wait; }
-/* Separate recent experience rows with spacing and a light bottom border */
 .member-panel .recent-row { padding: 15px 0; border-bottom: 1px solid #ead8cc; overflow: hidden; }
-/* Remove the divider below the last recent experience */
 .member-panel .recent-row:last-child { border-bottom: none; }
-/* Place the recent experience icon on the left */
 .member-panel .recent-row > .passport-icon { float: left; margin: 5px 18px 0 0; }
-/* Leave space for the icon before the experience details */
 .member-panel .recent-details { margin-left: 45px; }
-/* Style the cafe name heading inside each recent experience */
 .member-panel .recent-details h3 { margin: 0 0 6px; font-size: 18px; }
-/* Set the spacing and size of recent experience text */
 .member-panel .recent-details p { margin: 0 0 6px; font-size: 14px; }
-/* Show the experience date in a smaller muted style */
 .member-panel .recent-details .experience-date { color: #8a7064; font-size: 12px; }
-/* Keep the floated stamp slots inside the stamp list */
 .member-panel .stamp-list { overflow: hidden; margin: 0 -1%; }
 /* Place five stamp slots per row with equal widths rounded corners and centred text */
 .member-panel .stamp-slot { float: left; box-sizing: border-box; width: 18%; min-height: 120px; margin: 10px 1%; border: none; border-radius: 12px; padding: 15px 5px; text-align: center; overflow-wrap: anywhere; }
-/* Use a light beige background for collected stamps */
 .member-panel .earned-stamp { background: #f1dccf; }
-/* Use the pale page colour for stamps that have not been collected */
 .member-panel .empty-stamp { background: #fdf8f4; }
-/* Put the cafe name and date on separate lines inside a stamp slot */
 .member-panel .stamp-slot strong, .member-panel .stamp-slot small { display: block; margin-top: 8px; font-size: 12px; }
-/* Make stamp dates smaller and use the muted text colour */
 .member-panel .stamp-slot small { color: #8a7064; font-size: 11px; }
-/* Fade the icon inside an empty stamp slot */
 .member-panel .empty-stamp .passport-icon { opacity: 0.35; }
-/* Use coffee brown bold text for the earned badge message */
 .member-panel .milestone { color: #6f4630; font-weight: bold; }
 /* Set the profile form width and spacing while allowing the pencil button to remain visible */
 .member-panel .profile-form { max-width: 500px; margin-top: 25px; padding: 0; background: transparent; overflow: visible; }
-/* Create a circular beige area for the profile icon */
 .member-panel .profile-avatar { width: 76px; height: 76px; border-radius: 50%; background: #f1dccf; overflow: hidden; text-align: center; line-height: 76px; font-family: Georgia, Cambria, serif; font-size: 30px; }
 /* Style the pencil as a small brown square button on the right */
 .member-panel .edit-name-btn { float: right; width: 30px; height: 30px; padding: 5px; margin-top: -8px; border: none; border-radius: 8px; background: #6f4630; color: white; cursor: pointer; }
-/* Use a white pencil icon that fits inside its button */
 .member-panel .edit-name-btn .passport-icon { width: 20px; height: 20px; color: white; }
-/* Give visible profile fields matching white boxes without borders */
 .member-panel .profile-form input:not([type="hidden"]) { display: block; box-sizing: border-box; width: 100%; padding: 10px 12px; margin-top: 7px; border: none; border-radius: 8px; background: white; color: #4a3226; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
 /* Change the name field background while editing is enabled */
 .member-panel .profile-form input.name-editing { background: #f1dccf; }
-/* Hide Save Changes until the pencil button is clicked */
 .member-panel .profile-form .save-hidden { display: none; }   /* shown by passport.js after clicking the pencil */
-/* Remove the name input outline when it is focused */
 .member-panel .profile-form input:focus-visible { outline: none; }
-/* Put profile hints and validation messages on separate lines */
 .member-panel .profile-form small, .member-panel .profile-form .msg { display: block; margin-top: 6px; line-height: 1.5; }
-/* Show a visible keyboard focus outline on links buttons and fields */
 .member-panel a:focus-visible, .member-panel button:focus-visible, .member-panel input:focus-visible { outline: 2px solid #6f4630; outline-offset: 3px; }
 
 /* Apply the following layout changes on screens up to eight hundred pixels wide */
 @media (max-width: 800px) {
-    /* Move the sidebar above the content and remove its minimum height on narrower screens */
     .member-page #sidebar { float: none; width: auto; min-height: 0; margin: 15px; }
-    /* Place sidebar menu items next to each other on narrower screens */
     .member-page #sidebar li { display: inline-block; }
-    /* Reduce the space around the main content on narrower screens */
     .member-page main { margin: 15px; }
-    /* Reduce panel padding and remove the minimum panel height on narrower screens */
     .member-panel { padding: 22px 18px; min-height: 0; }
     /* Reduce the padding inside statistic cards on narrower screens */
     .member-panel .stat-card { padding: 12px; }
-    /* Place statistic icons above their text on narrower screens */
     .member-panel .stat-card .passport-icon { float: none; display: block; margin: 0 0 10px; }
     /* Display three stamp slots per row on narrower screens */
     .member-panel .stamp-slot { width: 31.33%; }
-/* End the layout changes for screens up to eight hundred pixels wide */
 }
 
 /* Apply the following layout changes on screens up to five hundred and twenty pixels wide */
 @media (max-width: 520px) {
     /* Place each statistic card across almost the full row on small screens */
     .member-panel .stat-card { width: 98%; padding: 16px; }
-    /* Place statistic icons beside their text again when each card has a full row */
     .member-panel .stat-card .passport-icon { float: left; margin: 7px 14px 0 0; }
     /* Display two stamp slots per row on small screens */
     .member-panel .stamp-slot { width: 48%; }
-    /* Make action buttons use the full row on small screens */
     .member-panel .progress-actions .btn { width: 100%; margin-right: 0; }
-/* End the layout changes for small screens */
 }
