@@ -2,6 +2,13 @@
 // my_experiences.php - show my experiences (READ) and delete one (DELETE)
 
 session_start();
+
+// Lab 8: only a logged-in user can open this page
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "db.php";
 require_once "Experience.php";
 
