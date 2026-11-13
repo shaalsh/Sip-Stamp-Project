@@ -56,7 +56,7 @@ $(document).ready(function () {
         $.ajax({
             url: "authenticate.php",
             type: "POST",
-            data: { email: $("#email").val().trim(), password: $("#password").val() },
+            data: { email: $("#email").val().trim(), password: $("#password").val(), ajax: 1 },
             success: function (response) {
                 var parts = response.split("|");
                 if (parts[0] === "success") {

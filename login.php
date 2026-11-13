@@ -66,6 +66,6 @@ $registered = isset($_GET["registered"]);
 
     <!-- Lab 8: load jQuery and the script before </body> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="auth.js"></script>
+    <script src="auth.js?v=2"></script>
 </body>
 </html>
