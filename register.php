@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-// Only accept the sign up form (Lab 8: POST only)
+// Only accept the sign up form
 if (!isset($_POST["email"])) {
     exit("error|POST only.");
 }

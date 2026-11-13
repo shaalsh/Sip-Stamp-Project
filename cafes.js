@@ -21,7 +21,7 @@ $(document).ready(function () {
         }
     });
 
-    // Save or remove a favorite using AJAX (Lab 8)
+    // Save or remove a favorite using AJAX
     $(".favorite-btn").click(function () {
         var button = $(this);
         var cafeId = button.attr("data-cafe");

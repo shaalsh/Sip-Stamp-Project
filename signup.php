@@ -68,7 +68,7 @@ if (isset($_SESSION["user_id"])) {
 
     </div>
 
-    <!-- Lab 8: load jQuery and the script before </body> -->
+    <!-- Load jQuery before the form script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="auth.js"></script>
 </body>

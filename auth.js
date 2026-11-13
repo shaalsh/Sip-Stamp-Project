@@ -1,4 +1,4 @@
-// auth.js - sign up and log in with jQuery AJAX (Lab 8)
+// Sign up and log in with jQuery AJAX
 $(document).ready(function () {
 
     // Sign up: check the passwords, then send the form with AJAX
