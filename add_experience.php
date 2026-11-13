@@ -1,7 +1,7 @@
 <?php
 // Save a new coffee experience
 
-session_start();
+require_once "require_login.php";
 require_once "db.php";
 
 $message = "";

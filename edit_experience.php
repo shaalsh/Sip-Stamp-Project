@@ -2,7 +2,7 @@
 // edit_experience.php - edit one experience (UPDATE)
 // opened like this: edit_experience.php?id=5
 
-session_start();
+require_once "require_login.php";
 require_once "db.php";
 
 $userId  = $_SESSION["user_id"];

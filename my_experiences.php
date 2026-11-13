@@ -1,7 +1,7 @@
 <?php
 // my_experiences.php - show my experiences (READ) and delete one (DELETE)
 
-session_start();
+require_once "require_login.php";
 require_once "db.php";
 require_once "Experience.php";
 
