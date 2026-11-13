@@ -1,7 +1,14 @@
 <?php
 // Save a new coffee experience
 
-require_once "require_login.php";
+session_start();
+
+// Check the login session before opening this page
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "db.php";
 
 $message = "";

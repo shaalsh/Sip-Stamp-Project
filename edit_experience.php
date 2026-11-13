@@ -2,7 +2,14 @@
 // edit_experience.php - edit one experience (UPDATE)
 // opened like this: edit_experience.php?id=5
 
-require_once "require_login.php";
+session_start();
+
+// Check the login session before opening this page
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "db.php";
 
 $userId  = $_SESSION["user_id"];
