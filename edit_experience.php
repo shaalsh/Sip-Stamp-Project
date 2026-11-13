@@ -3,6 +3,7 @@
 // opened like this: edit_experience.php?id=5
 
 session_start();
+header("Cache-Control: no-store");
 
 // Check the login session before opening this page
 if (!isset($_SESSION["user_id"])) {

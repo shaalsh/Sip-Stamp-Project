@@ -39,6 +39,7 @@ try {
     }
 
     // Save the user in the session
+    session_regenerate_id(true);
     $_SESSION["user_id"] = $userId;
 
     // Return the login status so JavaScript can open the dashboard

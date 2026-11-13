@@ -16,7 +16,7 @@ if (isset($_POST["name"])) {
     // Check that the form belongs to the current session before saving the name
     if (!isset($_POST["profile_token"]) || !hash_equals($_SESSION["profile_token"], $_POST["profile_token"])) {
         $message = "Please reload the page and try again.";
-    } else if ($name == "" || strlen($name) > 100) {
+    } else if ($name == "" || mb_strlen($name) > 100) {
         $message = "Please enter a name with 1 to 100 characters.";
     }
 

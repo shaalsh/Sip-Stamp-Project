@@ -2,6 +2,7 @@
 // my_experiences.php - show my experiences (READ) and delete one (DELETE)
 
 session_start();
+header("Cache-Control: no-store");
 
 // Check the login session before opening this page
 if (!isset($_SESSION["user_id"])) {

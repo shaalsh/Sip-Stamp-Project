@@ -19,7 +19,7 @@ if ($name === "" || $email === "" || $password === "" || $confirmPassword === ""
 }
 
 // Check the name length
-if (strlen($name) > 100) {
+if (mb_strlen($name) > 100) {
     exit("error|Name must not exceed 100 characters.");
 }
 

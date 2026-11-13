@@ -2,6 +2,7 @@
 // Save a new coffee experience
 
 session_start();
+header("Cache-Control: no-store");
 
 // Check the login session before opening this page
 if (!isset($_SESSION["user_id"])) {
