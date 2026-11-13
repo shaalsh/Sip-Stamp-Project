@@ -1,8 +1,6 @@
 <?php
 // favorites.php - show the cafes saved by this user
-session_start();
-// Demo user for testing Student 2 without the login module.
-if (!isset($_SESSION["user_id"])) { $_SESSION["user_id"] = 1; }
+require_once "require_login.php";
 require_once "db.php";
 $pageTitle = "Favorites";
 $activePage = "favorites";

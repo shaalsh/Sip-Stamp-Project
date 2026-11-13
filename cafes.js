@@ -26,6 +26,12 @@ $(document).ready(function () {
                     button.closest(".cafe-item").remove();
                 }
             }
-        }).fail(function () { $("#favoriteMessage").text("Something went wrong. Try again."); });
+        }).fail(function (response) {
+            if (response.status === 401) {
+                window.location.href = "login.php";
+                return;
+            }
+            $("#favoriteMessage").text("Something went wrong. Try again.");
+        });
     });
 });

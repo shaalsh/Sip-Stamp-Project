@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $pageTitle; ?> - SipStamp</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="cafes_style.css">
+    <?php if ($activePage === "cafes" || $activePage === "favorites") { ?>
+        <link rel="stylesheet" href="cafes_style.css">
+    <?php } ?>
     <?php if (isset($passport)) { ?>
         <link rel="stylesheet" href="member.css">
     <?php } ?>

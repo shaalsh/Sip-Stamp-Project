@@ -1,10 +1,13 @@
 <?php
 // toggle_favorite.php - AJAX adds or removes one favorite
-session_start();
-// Demo user for testing Student 2 without the login module.
-if (!isset($_SESSION["user_id"])) { $_SESSION["user_id"] = 1; }
+require_once "require_login.php";
 require_once "db.php";
 header("Content-Type: text/plain; charset=utf-8");
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Allow: POST");
+    http_response_code(405);
+    exit("Use POST to update favorites");
+}
 $userId = (int) $_SESSION["user_id"];
 $cafeId = isset($_POST["cafe_id"]) ? (int) $_POST["cafe_id"] : 0;
 if ($cafeId <= 0) { http_response_code(400); exit("Invalid café"); }
