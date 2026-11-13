@@ -13,7 +13,7 @@ function loginError($message, $ajax) {
     exit("<script>alert('" . $message . "'); window.location.href = 'login.php';</script>");
 }
 
-// Only accept the log in form (Lab 8: POST only)
+// Only accept the log in form
 if (!isset($_POST["email"])) {
     header("Location: login.php");
     exit;

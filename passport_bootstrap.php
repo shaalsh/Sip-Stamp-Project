@@ -1,5 +1,5 @@
 <?php
-// Lab 8: only a logged-in user can open the member pages
+// Check the login session before opening the account pages
 session_start();
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");

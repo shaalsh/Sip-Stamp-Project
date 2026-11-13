@@ -24,7 +24,7 @@ if (isset($_POST["cafe_id"])) {
     if ($cafeId <= 0 || $drink == "" || $stars < 1 || $stars > 5 || $comment == "") {
         $message = "Please fill in all the fields.";
     } else {
-        // Transaction (Lab 7): save the experience and its stamp together, or neither
+        // Save the experience and its stamp together
         mysqli_autocommit($connection, FALSE);
         try {
             $statement = mysqli_prepare($connection,
