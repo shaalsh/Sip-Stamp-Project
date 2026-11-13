@@ -44,14 +44,14 @@ include "header.php";
     <h2>My Coffee Experiences</h2>
 
     <?php if (isset($_SESSION["flash"])) { ?>
-        <p class="flash"><?php echo $_SESSION["flash"]; ?></p>
+        <p class="flash"><?php echo htmlspecialchars($_SESSION["flash"]); ?></p>
         <?php unset($_SESSION["flash"]); ?>
     <?php } ?>
 
     <p class="hint">Use Edit to update an experience or its rating. <a href="add_experience.php" class="btn small">&#10010; Add Experience</a></p>
 
     <?php foreach ($experiences as $exp) { ?>
-        <article class="card" id="exp<?php echo $exp->getId(); ?>">
+        <article class="card">
 
             <figure class="card-photo"><span class="big-cup">&#9749;</span></figure>
 
