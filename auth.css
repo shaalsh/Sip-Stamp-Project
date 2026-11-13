@@ -1,0 +1,147 @@
+
+/* =============== AUTH PAGES =============== */
+
+.auth-box {
+    width: 90%;
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 35px;
+    background-color: #fdf8f4;
+    border: 1px solid #ead8cc;
+    border-radius: 18px;
+    box-sizing: border-box;
+}
+
+.auth-box h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #6f4630;
+}
+
+.auth-box h2 {
+    text-align: center;
+    font-size: 24px;
+}
+
+.auth-box .hint {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* =============== FORM FIELDS =============== */
+
+.auth-box label {
+    display: block;
+    margin-top: 18px;
+}
+
+.auth-box input {
+    display: block;
+    width: 100%;
+    margin-top: 7px;
+    padding: 12px;
+    border: 1px solid #e2cdbd;
+    border-radius: 8px;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.auth-box input:focus {
+    outline: 2px solid #b8957e;
+}
+
+/* =============== BUTTONS =============== */
+
+.auth-btn {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 13px;
+    background-color: #6f4630;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: #543321;
+}
+
+/* =============== MESSAGES =============== */
+
+.auth-box .msg {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.auth-box .auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-box a {
+    color: #6f4630;
+}
+
+/* =============== HOME PAGE =============== */
+
+.home-box {
+    width: 90%;
+    max-width: 650px;
+    margin: 110px auto;
+    padding: 55px 35px;
+    background-color: #fdf8f4;
+    border: 1px solid #ead8cc;
+    border-radius: 18px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.home-box h1 {
+    font-size: 42px;
+    color: #6f4630;
+    margin-bottom: 25px;
+}
+
+.home-box h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.home-box .hint {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* =============== HOME BUTTONS =============== */
+
+.home-buttons {
+    margin-top: 30px;
+}
+
+.home-btn {
+    display: inline-block;
+    padding: 13px 30px;
+    margin: 8px;
+    background-color: #6f4630;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+    background-color: #543321;
+}
+
+.secondary-btn {
+    background-color: #ead8cc;
+    color: #4a3226;
+}
+
+.secondary-btn:hover {
+    background-color: #ddc2b1;
+}
