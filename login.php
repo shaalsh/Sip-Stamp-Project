@@ -51,8 +51,6 @@ $registered = isset($_GET["registered"]);
             <input type="password" id="password"
                    name="password" required>
 
-            <div id="loginResult" class="msg"></div>
-
             <button type="submit" class="auth-btn">
                 Log In
             </button>

@@ -52,9 +52,6 @@ $(document).ready(function () {
     // Log in: send the form with AJAX and open the dashboard only after success
     $("#loginForm").submit(function (event) {
         event.preventDefault();
-        var result = $("#loginResult");
-        result.removeClass("success failure");
-        result.html("");
 
         $.ajax({
             url: "authenticate.php",
@@ -65,13 +62,12 @@ $(document).ready(function () {
                 if (parts[0] === "success") {
                     window.location.href = "dashboard.php";
                 } else {
-                    result.addClass("failure");
-                    result.html(parts[1]);
+                    // Wrong email or password: show a popup message
+                    alert(parts[1]);
                 }
             },
             error: function (xhr) {
-                result.addClass("failure");
-                result.html("AJAX error: " + xhr.status + ". Please try again.");
+                alert("AJAX error: " + xhr.status + ". Please try again.");
             }
         });
     });
