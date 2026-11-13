@@ -12,9 +12,4 @@ if (mysqli_connect_errno()) {
     die("Unable to connect to database: " . mysqli_connect_error());
 }
 mysqli_set_charset($connection, "utf8mb4");
-
-// Use user 1 as a temporary test account when there is no login session
-if (!isset($_SESSION["user_id"])) {
-    $_SESSION["user_id"] = 1;
-}
 ?>
