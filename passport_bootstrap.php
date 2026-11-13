@@ -1,20 +1,23 @@
 <?php
 
 session_start();
+header("Cache-Control: no-store");
+
+// Read the account from the login session before loading any user data
+if (!isset($_SESSION["user_id"]) || !is_scalar($_SESSION["user_id"]) || (int) $_SESSION["user_id"] <= 0) {
+    unset($_SESSION["user_id"]);
+    if (basename($_SERVER["SCRIPT_NAME"]) === "progress.php") {
+        http_response_code(401);
+        exit("Please log in to view your account.");
+    }
+    header("Location: login.php");
+    exit;
+}
 if (!is_file(__DIR__ . "/config.php")) {
     http_response_code(503);
     exit("Copy config.example.php to config.php and add your database settings first.");
 }
 require_once __DIR__ . "/config.php";
-
-// Use a local test account when DEMO_USER_ID is enabled
-if (!isset($_SESSION["user_id"]) && defined("DEMO_USER_ID") && DEMO_USER_ID > 0) {
-    $_SESSION["user_id"] = (int) DEMO_USER_ID;
-}
-if (!isset($_SESSION["user_id"]) || !is_scalar($_SESSION["user_id"]) || (int) $_SESSION["user_id"] <= 0) {
-    http_response_code(401);
-    exit("Please log in to view your account.");
-}
 
 require_once __DIR__ . "/db.php";
 require_once __DIR__ . "/CoffeePassport.php";
@@ -29,7 +32,12 @@ mysqli_stmt_execute($statement);
 $user = mysqli_fetch_assoc(mysqli_stmt_get_result($statement));
 mysqli_stmt_close($statement);
 if (!$user) {
-    http_response_code(401);
-    exit("This account was not found. Please log in again.");
+    unset($_SESSION["user_id"]);
+    if (basename($_SERVER["SCRIPT_NAME"]) === "progress.php") {
+        http_response_code(401);
+        exit("Please log in to view your account.");
+    }
+    header("Location: login.php");
+    exit;
 }
 $passport = new CoffeePassport($connection, $userId);

@@ -15,7 +15,11 @@ $(document).ready(function () {
             $("#cafeCount").text(progress.attr("data-cafes"));
             $("#stampCount").text(progress.attr("data-stamps"));
             $("#progressMessage").text("");
-        }).fail(function () {
+        }).fail(function (response) {
+            if (response.status === 401) {
+                window.location.href = "login.php";
+                return;
+            }
             $("#progressMessage").text("Could not update your stamps. We will try again automatically.");
         }).always(function () {
             loading = false;

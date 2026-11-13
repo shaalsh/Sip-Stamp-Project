@@ -6,7 +6,7 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 
 1. Follow `LOCAL_SETUP.md` and import `database.sql` once into a new local setup. It creates `sip_stamp` with all five tables and sample data and does not drop existing tables. Do not reimport over an existing populated database.
 2. Copy `config.example.php` to the local `config.php` and match `DBPORT` to the MySQL port on that computer. Do not upload `config.php` to GitHub. The former online hosting account expired and the current setup uses local MySQL.
-3. For local testing before the login module is available, set `DEMO_USER_ID` to the ID of an existing test user in your local `config.php`. Leave it `0` when using real login sessions. The new pages read `$_SESSION["user_id"]` from the login module.
+3. Sign in through `login.php` or create an account through `signup.php`. Member pages read `$_SESSION["user_id"]` from the login module and never create a demo session even if an old local configuration still defines `DEMO_USER_ID`.
 4. Run `php -S localhost:8000` in the project folder, then open `http://localhost:8000/dashboard.php`.
 5. PHP needs MySQLi and mbstring. No profile upload folder or image-upload settings are needed.
 
@@ -19,7 +19,7 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 - `profile.php`: updates only `users.name`, always using the session's user ID. The email is displayed in a read-only box and cannot be edited through this page. A letter from the user's name is shown in a circle. Profile photo upload was removed to keep the feature within the agreed course scope. The existing `users.profile_pic` column and any saved image paths are left unchanged.
 - `add_experience.php`: inserts the experience and one stamp in a transaction. `stamps.experience_id` refers to `experiences.id`, and the unique key prevents a second stamp for the same experience. Editing a rating does not add a stamp; deleting the experience removes the stamp through the foreign key.
 
-Existing `db.php` and experience pages still contain Lama's temporary user-1 fallback. The authentication owner must remove that fallback when integrating real login/logout. New member pages check the session before including `db.php`, with demo access only when explicitly enabled locally.
+`db.php` connects using the local database port and does not create a login session. Member pages redirect signed-out users to `login.php` before loading account data. The progress endpoint returns 401 without a valid session and its AJAX client opens the login page. Member responses use `Cache-Control: no-store`. Experience and cafe pages require their own authentication integration checks.
 
 The café/favorites branch has not been merged here. These files are based on `feature/experiences`, with the approved member-page changes kept in `feature/passport`. The shared MySQL connection was checked and missing stamps were added for the two existing experiences without changing those experiences.
 
@@ -46,4 +46,4 @@ The main programming approach follows the course topics: HTML forms, external CS
 - Save a name: only `users.name` should change; the email and existing profile photo data must stay unchanged. No file input or editable email input should appear on the page.
 - With JavaScript available, the name starts read-only and Save Changes is hidden. Clicking the pencil enables the name and reveals Save Changes. The email appears in a matching read-only input without a submitted field name; it cannot be updated by the handler. Without JavaScript, the normal name form remains usable.
 - Try an empty name, a name longer than 100 characters and a form with a missing/incorrect token: no profile change should be saved. Sending an extra email field manually must not change the account email.
-- Switch to another user: their profile, counts and stamps must be separate. With demo mode off, signed-out requests to the new pages must return 401.
+- Switch to another user: their profile, counts and stamps must be separate. Signed-out member pages redirect to login and signed-out progress requests return 401.
