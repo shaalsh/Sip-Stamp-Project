@@ -1,0 +1,25 @@
+/* Cafe-specific styles; shared layout and cards come from style.css. */
+.cafe-search {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 10px 0 22px;
+    padding: 9px 12px;
+    border: 1px solid #e2cbbd;
+    border-radius: 8px;
+    background: white;
+    color: #4a3226;
+    font: 14px Arial, Helvetica, sans-serif;
+}
+.cafe-emoji { font-size: 60px; line-height: 130px; }
+.cafe-info .favorite-btn { display: inline-block; margin: 12px 0 0; }
+.cafe-search:focus-visible { outline: 2px solid #6f4630; outline-offset: 3px; }
+@media (max-width: 600px) {
+    #sidebar { box-sizing: border-box; width: 145px; padding: 20px 8px; margin-left: 8px; }
+    .logo { font-size: 20px; margin-left: 0; }
+    #sidebar a { padding: 10px 8px; }
+    main { margin-left: 165px; margin-right: 8px; }
+    .panel { padding: 16px 12px; }
+    .cafe-item .card-photo { float: none; width: 100%; height: 70px; margin-bottom: 12px; }
+    .cafe-emoji { line-height: 70px; }
+    .cafe-info { margin-left: 0; overflow-wrap: anywhere; }
+}
