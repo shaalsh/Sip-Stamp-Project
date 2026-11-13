@@ -82,6 +82,14 @@
     margin-top: 20px;
 }
 
+.auth-box .failure {
+    color: #c0392b;
+}
+
+.auth-box .success {
+    color: #386343;
+}
+
 .auth-box a {
     color: #6f4630;
 }

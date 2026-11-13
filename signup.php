@@ -21,6 +21,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="auth.js" defer></script>
 </head>
 
@@ -56,7 +57,7 @@ if (isset($_SESSION["user_id"])) {
                    name="confirmPassword" required>
 
             <!-- Validation message -->
-            <p id="signupMsg" class="msg" role="alert"></p>
+            <div id="signupMsg" class="msg" role="alert"></div>
 
             <button type="submit" class="auth-btn">
                 Create Account

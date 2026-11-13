@@ -21,9 +21,9 @@ These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css
 
 `db.php` connects using the local database port and does not create a login session. Member pages redirect signed-out users to `login.php` before loading account data. The progress endpoint returns 401 without a valid session and its AJAX client opens the login page. Member responses use `Cache-Control: no-store`. Experience and cafe pages require their own authentication integration checks.
 
-The café/favorites branch has not been merged here. These files are based on `feature/experiences`, with the approved member-page changes kept in `feature/passport`. The shared MySQL connection was checked and missing stamps were added for the two existing experiences without changing those experiences.
+The `explore-favorites-Tala` branch is merged into main. Cafe and favorites pages use the shared header and database connection and require Retal's login session through `require_login.php`. The favorite endpoint accepts POST only and returns 401 after logout. Cafe styles are loaded only on the two cafe pages.
 
-The local distribution database was restored and checked on XAMPP port 3307 with 14 cafes and two experiences with two stamps. Its schema matches the cafe and favorites queries currently in `tala-favorites`. The cafe pages themselves still need integration testing after their branch is merged. Future authentication schema changes must be coordinated with the team.
+The local distribution database was restored and checked on XAMPP port 3307 with 14 cafes and two experiences with two stamps. HTTP integration checks registered and logged in two temporary accounts and verified independent favorite lists and removals, member statistics, profile name updates and logout protection. Test accounts and their related data were removed after the checks. Future authentication schema changes must be coordinated with the team.
 
 The experience edit page now places Save Changes and Cancel on the same row. Ratings on My Experiences are display-only and are changed through Edit and Save Changes. The old direct rating endpoint no longer updates ratings.
 
