@@ -1,7 +1,13 @@
 <?php
+// This file is only shown inside the dashboard, passport and progress pages
 if (!isset($passport, $stats, $passportView)) {
-    http_response_code(404);
     exit;
+}
+?>
+<?php
+$remaining = 10 - $stats["stamps"];
+if ($remaining < 0) {
+    $remaining = 0;
 }
 ?>
 <?php if ($passportView == "passport") { $stamps = $passport->getStamps(); ?>
@@ -30,7 +36,7 @@ if (!isset($passport, $stats, $passportView)) {
             <span>Stamps collected</span>
         </div>
         <div class="stamp-total">
-            <strong><?php echo max(0, 10 - $stats["stamps"]); ?></strong>
+            <strong><?php echo $remaining; ?></strong>
             <span>Stamps remaining</span>
         </div>
     </div>

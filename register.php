@@ -1,19 +1,18 @@
-
 <?php
 // Start the session
 session_start();
 
-// Process the registration form
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+// Only accept the sign up form
+if (!isset($_POST["email"])) {
     header("Location: signup.php");
     exit;
 }
 
 // Get the form values
-$name = trim($_POST["name"] ?? "");
-$email = trim($_POST["email"] ?? "");
-$password = $_POST["password"] ?? "";
-$confirmPassword = $_POST["confirmPassword"] ?? "";
+$name = trim($_POST["name"]);
+$email = trim($_POST["email"]);
+$password = $_POST["password"];
+$confirmPassword = $_POST["confirmPassword"];
 
 // Check if any field is empty
 if ($name === "" || $email === "" || $password === "" || $confirmPassword === "") {
@@ -45,34 +44,25 @@ require_once "db.php";
 
 try {
     // Check if the email is already registered
-    $check = $connection->prepare(
-        "SELECT id FROM users WHERE email = ?"
-    );
+    $check = mysqli_prepare($connection, "SELECT id FROM users WHERE email = ?");
+    mysqli_stmt_bind_param($check, "s", $email);
+    mysqli_stmt_execute($check);
+    mysqli_stmt_bind_result($check, $existingId);
+    $found = mysqli_stmt_fetch($check);
+    mysqli_stmt_close($check);
 
-    $check->bind_param("s", $email);
-    $check->execute();
-
-    $result = $check->get_result();
-
-    if ($result->num_rows > 0) {
-        $check->close();
+    if ($found) {
         exit("This email is already registered.");
     }
-
-    $check->close();
 
     // Hash the password before saving it
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert the new user into the users table
-    $insert = $connection->prepare(
-        "INSERT INTO users (name, email, password)
-         VALUES (?, ?, ?)"
-    );
-
-    $insert->bind_param("sss", $name, $email, $hashedPassword);
-    $insert->execute();
-    $insert->close();
+    $insert = mysqli_prepare($connection, "INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+    mysqli_stmt_bind_param($insert, "sss", $name, $email, $hashedPassword);
+    mysqli_stmt_execute($insert);
+    mysqli_stmt_close($insert);
 
     // Redirect to the login page
     header("Location: login.php?registered=1");
@@ -81,8 +71,6 @@ try {
 } catch (mysqli_sql_exception $e) {
 
     // Show a general message if registration fails
-    error_log($e->getMessage());
-    http_response_code(500);
     exit("Registration failed. Please try again later.");
 }
 ?>

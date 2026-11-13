@@ -1,29 +1,29 @@
 
 // Check the sign up form before submitting
-const signupForm = document.getElementById("signupForm");
+var signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
 
     signupForm.addEventListener("submit", function(event) {
 
         // Get the password values
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        const signupMsg = document.getElementById("signupMsg");
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var signupMsg = document.getElementById("signupMsg");
 
-        signupMsg.textContent = "";
+        signupMsg.innerHTML = "";
 
         // Check the password length
         if (password.length < 8) {
             event.preventDefault();
-            signupMsg.textContent = "Password must be at least 8 characters.";
+            signupMsg.innerHTML = "Password must be at least 8 characters.";
             return;
         }
 
         // Check if the passwords match
         if (password !== confirmPassword) {
             event.preventDefault();
-            signupMsg.textContent = "Passwords do not match.";
+            signupMsg.innerHTML = "Passwords do not match.";
             return;
         }
 
