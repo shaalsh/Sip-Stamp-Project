@@ -11,8 +11,10 @@ $message = "";
 // the id comes from the URL the first time, and from the hidden field after saving
 if (isset($_POST["id"])) {
     $id = (int) $_POST["id"];
-} else {
+} else if (isset($_GET["id"])) {
     $id = (int) $_GET["id"];
+} else {
+    $id = 0;              // no id given -> "Experience not found."
 }
 
 // UPDATE: when the form is submitted
