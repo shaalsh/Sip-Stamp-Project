@@ -3,6 +3,13 @@
 // opened like this: edit_experience.php?id=5
 
 session_start();
+
+// Check the login session before opening this page
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "db.php";
 
 $userId  = $_SESSION["user_id"];
@@ -11,8 +18,10 @@ $message = "";
 // the id comes from the URL the first time, and from the hidden field after saving
 if (isset($_POST["id"])) {
     $id = (int) $_POST["id"];
-} else {
+} else if (isset($_GET["id"])) {
     $id = (int) $_GET["id"];
+} else {
+    $id = 0;              // no id given -> "Experience not found."
 }
 
 // UPDATE: when the form is submitted

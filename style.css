@@ -1,7 +1,7 @@
 /* ==============================================================
-   style.css - external stylesheet (Chapter 3 CSS, Lab 2, Lab 4)
+   Shared styles for the site
    Design: cream + coffee brown, sidebar on the left, rounded cards.
-   Layout uses FLOAT (Chapter 3), not flexbox or grid.
+   The sidebar and content use floats
    ============================================================== */
 
 /* ---------- colours used ----------
@@ -26,7 +26,7 @@ h1, h2, h3 {
 
 /* ================= SIDEBAR ================= */
 #sidebar {
-    float: left;                          /* Chapter 3: float - sidebar on the left */
+    float: left;                          /* Keep the sidebar on the left */
     width: 200px;
     min-height: 640px;
     margin: 0 0 20px 20px;                /* TRBL shortcut: top right bottom left */
@@ -292,10 +292,5 @@ select, textarea {
     color: #2e7d32;
     padding: 10px 14px;
     border-radius: 8px;
-    font-weight: bold;
-}
-
-#ajaxMessage {
-    color: #2e7d32;
     font-weight: bold;
 }

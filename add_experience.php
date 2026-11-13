@@ -2,6 +2,13 @@
 // Save a new coffee experience
 
 session_start();
+
+// Check the login session before opening this page
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "db.php";
 
 $message = "";
@@ -17,8 +24,8 @@ if (isset($_POST["cafe_id"])) {
     if ($cafeId <= 0 || $drink == "" || $stars < 1 || $stars > 5 || $comment == "") {
         $message = "Please fill in all the fields.";
     } else {
-        // Save the experience and its stamp together so both are added successfully
-        mysqli_begin_transaction($connection);
+        // Save the experience and its stamp together
+        mysqli_autocommit($connection, FALSE);
         try {
             $statement = mysqli_prepare($connection,
                 "INSERT INTO experiences (user_id, cafe_id, drink, stars, comment) VALUES (?, ?, ?, ?, ?)");
@@ -33,12 +40,14 @@ if (isset($_POST["cafe_id"])) {
             mysqli_stmt_execute($statement);
             mysqli_stmt_close($statement);
             mysqli_commit($connection);
+            mysqli_autocommit($connection, TRUE);
 
             $_SESSION["flash"] = "Your experience was added and you earned a stamp.";
             header("Location: my_experiences.php");
             exit;
         } catch (mysqli_sql_exception $exception) {
             mysqli_rollback($connection);
+            mysqli_autocommit($connection, TRUE);
             $message = "Your experience could not be saved. Please try again.";
         }
     }

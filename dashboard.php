@@ -35,7 +35,7 @@ include "header.php";
     <p class="progress-actions passport-actions">
         <a href="passport.php" class="btn">View Passport</a>
     </p>
-    <p id="progressMessage" class="hint" role="status"></p>
+    <p id="progressMessage" class="hint"></p>
 
     <h3>Recent Experiences</h3>
     <?php if (count($recentExperiences) == 0) { ?>

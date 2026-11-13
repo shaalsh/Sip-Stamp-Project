@@ -14,7 +14,7 @@ include "header.php";
     <p class="progress-actions passport-actions">
         <a href="add_experience.php" class="btn">Add Experience</a>
     </p>
-    <p id="progressMessage" class="hint" role="status"></p>
+    <p id="progressMessage" class="hint"></p>
 </section>
 <script src="passport.js"></script>
 </main>

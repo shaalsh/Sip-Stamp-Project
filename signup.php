@@ -1,4 +1,3 @@
-
 <?php
 // Start the session to check if the user is logged in
 session_start();
@@ -20,8 +19,6 @@ if (isset($_SESSION["user_id"])) {
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
-
-    <script src="auth.js" defer></script>
 </head>
 
 <body>
@@ -56,7 +53,7 @@ if (isset($_SESSION["user_id"])) {
                    name="confirmPassword" required>
 
             <!-- Validation message -->
-            <p id="signupMsg" class="msg" role="alert"></p>
+            <div id="signupMsg" class="msg"></div>
 
             <button type="submit" class="auth-btn">
                 Create Account
@@ -71,5 +68,8 @@ if (isset($_SESSION["user_id"])) {
 
     </div>
 
+    <!-- Load jQuery before the form script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

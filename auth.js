@@ -1,31 +1,78 @@
+// Sign up and log in with jQuery AJAX
+$(document).ready(function () {
 
-// Check the sign up form before submitting
-const signupForm = document.getElementById("signupForm");
+    // Sign up: check the passwords, then send the form with AJAX
+    $("#signupForm").submit(function (event) {
+        event.preventDefault();
+        var result = $("#signupMsg");
+        var password = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        result.removeClass("success failure");
+        result.html("");
 
-if (signupForm) {
-
-    signupForm.addEventListener("submit", function(event) {
-
-        // Get the password values
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        const signupMsg = document.getElementById("signupMsg");
-
-        signupMsg.textContent = "";
-
-        // Check the password length
         if (password.length < 8) {
-            event.preventDefault();
-            signupMsg.textContent = "Password must be at least 8 characters.";
+            result.addClass("failure");
+            result.html("Password must be at least 8 characters.");
             return;
         }
-
-        // Check if the passwords match
         if (password !== confirmPassword) {
-            event.preventDefault();
-            signupMsg.textContent = "Passwords do not match.";
+            result.addClass("failure");
+            result.html("Passwords do not match.");
             return;
         }
 
+        $.ajax({
+            url: "register.php",
+            type: "POST",
+            data: {
+                name: $("#name").val().trim(),
+                email: $("#email").val().trim(),
+                password: password,
+                confirmPassword: confirmPassword
+            },
+            success: function (response) {
+                // PHP answers "success|message" or "error|message"
+                var parts = response.split("|");
+                if (parts[0] === "success") {
+                    result.addClass("success");
+                    result.html(parts[1]);
+                    document.getElementById("signupForm").reset();
+                } else {
+                    result.addClass("failure");
+                    result.html(parts[1]);
+                }
+            },
+            error: function (xhr) {
+                result.addClass("failure");
+                result.html("AJAX error: " + xhr.status + ". Please try again.");
+            }
+        });
     });
-}
+
+    // Log in: send the form with AJAX and open the dashboard only after success
+    $("#loginForm").submit(function (event) {
+        event.preventDefault();
+        var result = $("#loginResult");
+        result.removeClass("success failure");
+        result.html("");
+
+        $.ajax({
+            url: "authenticate.php",
+            type: "POST",
+            data: { email: $("#email").val().trim(), password: $("#password").val() },
+            success: function (response) {
+                var parts = response.split("|");
+                if (parts[0] === "success") {
+                    window.location.href = "dashboard.php";
+                } else {
+                    result.addClass("failure");
+                    result.html(parts[1]);
+                }
+            },
+            error: function (xhr) {
+                result.addClass("failure");
+                result.html("AJAX error: " + xhr.status + ". Please try again.");
+            }
+        });
+    });
+});
