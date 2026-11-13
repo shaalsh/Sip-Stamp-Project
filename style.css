@@ -294,8 +294,3 @@ select, textarea {
     border-radius: 8px;
     font-weight: bold;
 }
-
-#ajaxMessage {
-    color: #2e7d32;
-    font-weight: bold;
-}
