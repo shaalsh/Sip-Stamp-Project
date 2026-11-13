@@ -2,22 +2,23 @@
 // toggle_favorite.php - AJAX adds or removes one favorite
 require_once "require_login.php";
 require_once "db.php";
-header("Content-Type: text/plain; charset=utf-8");
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Allow: POST");
-    http_response_code(405);
-    exit("Use POST to update favorites");
+
+// Only accept a request that sends a café id
+if (!isset($_POST["cafe_id"])) {
+    exit("error");
 }
-$userId = (int) $_SESSION["user_id"];
-$cafeId = isset($_POST["cafe_id"]) ? (int) $_POST["cafe_id"] : 0;
-if ($cafeId <= 0) { http_response_code(400); exit("Invalid café"); }
+$userId = $_SESSION["user_id"];
+$cafeId = (int) $_POST["cafe_id"];
+if ($cafeId <= 0) {
+    exit("error");
+}
 
 // Check if the cafe is already saved
 $stmt = mysqli_prepare($connection, "SELECT id FROM favorites WHERE user_id = ? AND cafe_id = ?");
 mysqli_stmt_bind_param($stmt, "ii", $userId, $cafeId);
 mysqli_stmt_execute($stmt);
-mysqli_stmt_store_result($stmt);
-$exists = mysqli_stmt_num_rows($stmt) > 0;
+mysqli_stmt_bind_result($stmt, $favoriteId);
+$exists = mysqli_stmt_fetch($stmt);
 mysqli_stmt_close($stmt);
 
 if ($exists) {
@@ -28,5 +29,6 @@ if ($exists) {
     $answer = "added";
 }
 mysqli_stmt_bind_param($stmt, "ii", $userId, $cafeId);
-if (mysqli_stmt_execute($stmt)) { echo $answer; }
-else { http_response_code(500); echo "Error saving favorite"; }
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+echo $answer;

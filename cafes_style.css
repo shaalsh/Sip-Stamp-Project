@@ -11,6 +11,7 @@
     font: 14px Arial, Helvetica, sans-serif;
 }
 .cafe-emoji { font-size: 60px; line-height: 130px; }
+.no-cafes { display: none; }                /* shown by cafes.js when no cafe matches */
 .cafe-info .favorite-btn { display: inline-block; margin: 12px 0 0; }
 .cafe-search:focus-visible { outline: 2px solid #6f4630; outline-offset: 3px; }
 @media (max-width: 600px) {

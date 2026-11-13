@@ -4,14 +4,22 @@ require_once "require_login.php";
 require_once "db.php";
 $pageTitle = "Favorites";
 $activePage = "favorites";
-$userId = (int) $_SESSION["user_id"];
+$userId = $_SESSION["user_id"];
 
-$sql = "SELECT cafes.* FROM cafes INNER JOIN favorites ON cafes.id = favorites.cafe_id
-        WHERE favorites.user_id = ? ORDER BY cafes.name";
-$stmt = mysqli_prepare($connection, $sql);
+// Get this user's favorite cafes (INNER JOIN)
+$stmt = mysqli_prepare($connection,
+    "SELECT cafes.id, cafes.name, cafes.city, cafes.description
+     FROM cafes INNER JOIN favorites ON cafes.id = favorites.cafe_id
+     WHERE favorites.user_id = ? ORDER BY cafes.name");
 mysqli_stmt_bind_param($stmt, "i", $userId);
 mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+mysqli_stmt_bind_result($stmt, $id, $name, $city, $description);
+
+$cafes = array();
+while (mysqli_stmt_fetch($stmt)) {
+    $cafes[] = array("id" => $id, "name" => $name, "city" => $city, "description" => $description);
+}
+mysqli_stmt_close($stmt);
 include "header.php";
 ?>
 <section class="panel">
@@ -19,14 +27,14 @@ include "header.php";
     <p class="hint">Your favorite coffee places in one spot.</p>
     <p id="favoriteMessage" class="hint"></p>
     <div class="cafe-list">
-    <?php while ($cafe = mysqli_fetch_assoc($result)) { ?>
-        <article class="card cafe-item">
+    <?php foreach ($cafes as $cafe) { ?>
+        <article class="card cafe-item" id="cafe<?php echo $cafe['id']; ?>">
             <div class="card-photo cafe-emoji">♥</div>
             <div class="card-text cafe-info">
                 <h3><?php echo htmlspecialchars($cafe['name']); ?></h3>
                 <p><?php echo htmlspecialchars($cafe['city']); ?></p>
-                <p><?php echo htmlspecialchars($cafe['description'] ?? ''); ?></p>
-                <button type="button" class="btn small favorite-btn" data-cafe="<?php echo (int)$cafe['id']; ?>">♥ Remove Favorite</button>
+                <p><?php echo htmlspecialchars($cafe['description']); ?></p>
+                <button type="button" class="btn small favorite-btn" data-cafe="<?php echo $cafe['id']; ?>" data-page="favorites">♥ Remove Favorite</button>
             </div>
         </article>
     <?php } ?>

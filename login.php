@@ -1,4 +1,3 @@
-
 <?php
 // Start the session
 session_start();
@@ -23,8 +22,6 @@ $registered = isset($_GET["registered"]);
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="auth.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="auth.js" defer></script>
 </head>
 
 <body>
@@ -54,7 +51,7 @@ $registered = isset($_GET["registered"]);
             <input type="password" id="password"
                    name="password" required>
 
-            <div id="loginResult" class="msg" role="alert"></div>
+            <div id="loginResult" class="msg"></div>
 
             <button type="submit" class="auth-btn">
                 Log In
@@ -69,5 +66,8 @@ $registered = isset($_GET["registered"]);
 
     </div>
 
+    <!-- Lab 8: load jQuery and the script before </body> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

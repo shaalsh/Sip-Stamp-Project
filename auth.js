@@ -1,23 +1,26 @@
+// auth.js - sign up and log in with jQuery AJAX (Lab 8)
 $(document).ready(function () {
-    // Send the sign up form without opening the PHP response as a page
-    $("#signupForm").on("submit", function (event) {
+
+    // Sign up: check the passwords, then send the form with AJAX
+    $("#signupForm").submit(function (event) {
         event.preventDefault();
-        var form = $(this);
         var result = $("#signupMsg");
         var password = $("#password").val();
         var confirmPassword = $("#confirmPassword").val();
-        result.removeClass("success failure").text("");
+        result.removeClass("success failure");
+        result.html("");
 
         if (password.length < 8) {
-            result.addClass("failure").text("Password must be at least 8 characters.");
+            result.addClass("failure");
+            result.html("Password must be at least 8 characters.");
             return;
         }
         if (password !== confirmPassword) {
-            result.addClass("failure").text("Passwords do not match.");
+            result.addClass("failure");
+            result.html("Passwords do not match.");
             return;
         }
 
-        form.find("button[type='submit']").prop("disabled", true);
         $.ajax({
             url: "register.php",
             type: "POST",
@@ -28,31 +31,30 @@ $(document).ready(function () {
                 confirmPassword: confirmPassword
             },
             success: function (response) {
-                // Read the status and message returned by PHP
+                // PHP answers "success|message" or "error|message"
                 var parts = response.split("|");
                 if (parts[0] === "success") {
-                    result.addClass("success").text(parts[1]);
-                    form[0].reset();
+                    result.addClass("success");
+                    result.html(parts[1]);
+                    document.getElementById("signupForm").reset();
                 } else {
-                    result.addClass("failure").text(parts[1] || "Unable to create your account.");
+                    result.addClass("failure");
+                    result.html(parts[1]);
                 }
             },
             error: function (xhr) {
-                result.addClass("failure").text("AJAX error: " + xhr.status + ". Please try again.");
-            },
-            complete: function () {
-                form.find("button[type='submit']").prop("disabled", false);
+                result.addClass("failure");
+                result.html("AJAX error: " + xhr.status + ". Please try again.");
             }
         });
     });
 
-    // Keep login errors inside the form and open the dashboard only after success
-    $("#loginForm").on("submit", function (event) {
+    // Log in: send the form with AJAX and open the dashboard only after success
+    $("#loginForm").submit(function (event) {
         event.preventDefault();
-        var form = $(this);
         var result = $("#loginResult");
-        result.removeClass("success failure").text("");
-        form.find("button[type='submit']").prop("disabled", true);
+        result.removeClass("success failure");
+        result.html("");
 
         $.ajax({
             url: "authenticate.php",
@@ -63,14 +65,13 @@ $(document).ready(function () {
                 if (parts[0] === "success") {
                     window.location.href = "dashboard.php";
                 } else {
-                    result.addClass("failure").text(parts[1] || "Unable to log in.");
+                    result.addClass("failure");
+                    result.html(parts[1]);
                 }
             },
             error: function (xhr) {
-                result.addClass("failure").text("AJAX error: " + xhr.status + ". Please try again.");
-            },
-            complete: function () {
-                form.find("button[type='submit']").prop("disabled", false);
+                result.addClass("failure");
+                result.html("AJAX error: " + xhr.status + ". Please try again.");
             }
         });
     });

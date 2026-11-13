@@ -1,9 +1,11 @@
 <?php
 
+// Print text safely on the page
 function passportEscape($value) {
-    return htmlspecialchars((string) $value, ENT_QUOTES, "UTF-8");
+    return htmlspecialchars($value);
 }
 
+// Small drawings (SVG icons) used on the dashboard, passport and profile
 function passportIcon($name) {
     $paths = array(
         "cup" => '<path d="M4 8h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M16 9h2a3 3 0 0 1 0 6h-2M3 22h16M8 2v3M12 2v3"/>',
@@ -12,5 +14,5 @@ function passportIcon($name) {
         "lock" => '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
         "pencil" => '<path d="m15 5 4 4M4 20l1-5L16 4a3 3 0 0 1 4 4L9 19l-5 1Z"/>'
     );
-    return '<svg class="passport-icon" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $paths[$name] . '</svg>';
+    return '<svg class="passport-icon" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' . $paths[$name] . '</svg>';
 }

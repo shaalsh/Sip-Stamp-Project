@@ -1,76 +1,39 @@
 $(document).ready(function () {
-    var content = $("#passportContent");
-    var loading = false;
-
-    // Get the latest stamp count from PHP and update this section without reloading the page
+    // Get the latest stamp count from PHP and update this section without reloading the page (AJAX)
     function refreshProgress() {
-        if (loading || content.length === 0) {
-            return;
-        }
-        loading = true;
-        $.get("progress.php", { view: content.attr("data-view") }, function (data) {
-            content.html(data);
-            var progress = content.find(".passport-progress");
-            $("#experienceCount").text(progress.attr("data-experiences"));
-            $("#cafeCount").text(progress.attr("data-cafes"));
-            $("#stampCount").text(progress.attr("data-stamps"));
-            $("#progressMessage").text("");
-        }).fail(function (response) {
-            if (response.status === 401) {
+        $.get("progress.php", { view: $("#passportContent").attr("data-view") }, function (data) {
+            if (data == "login") {
                 window.location.href = "login.php";
                 return;
             }
-            $("#progressMessage").text("Could not update your stamps. We will try again automatically.");
-        }).always(function () {
-            loading = false;
+            $("#passportContent").html(data);
+            $("#experienceCount").html($(".passport-progress").attr("data-experiences"));
+            $("#cafeCount").html($(".passport-progress").attr("data-cafes"));
+            $("#stampCount").html($(".passport-progress").attr("data-stamps"));
         });
     }
 
-    // Check for new stamps while the page is open
-    if (content.length > 0) {
-        setInterval(function () {
-            if (!document.hidden) {
-                refreshProgress();
-            }
-        }, 15000);
-
-        // Update the stamps when the user comes back after adding an experience in another tab
-        $(window).on("focus", refreshProgress);
-        $(document).on("visibilitychange", function () {
-            if (!document.hidden) {
-                refreshProgress();
-            }
-        });
+    // Check for new stamps every 15 seconds while the dashboard or passport is open
+    if ($("#passportContent").length > 0) {
+        setInterval(refreshProgress, 15000);
     }
 
-    // Allow the name to be edited after clicking the pencil while the email stays fixed
-    var profileForm = $("#profileForm");
-    if (profileForm.length > 0) {
-        var editing = profileForm.attr("data-editing") === "true";
-        $("#name").prop("readOnly", !editing);
-        $("#name").toggleClass("name-editing", editing);
-        $("#saveProfile").prop("hidden", !editing);
-        $("#editName").prop("hidden", false);
-    }
-
+    // Profile: click the pencil to edit the name (the email stays fixed)
     $("#editName").click(function () {
-        $("#name").prop("readOnly", false).addClass("name-editing").focus();
-        $("#saveProfile").prop("hidden", false);
+        $("#name").prop("readOnly", false);
+        $("#name").addClass("name-editing");
+        $("#name").focus();
+        $("#saveProfile").show();
     });
 
-    profileForm.on("submit", function (event) {
+    // Profile: check the name before the form is sent
+    $("#profileForm").submit(function (event) {
+        var name = $("#name").val().trim();
+        $("#nameMsg").html("");
         if ($("#name").prop("readOnly")) {
             event.preventDefault();
-            return;
-        }
-        var valid = true;
-        var name = $("#name").val().trim();
-        $("#nameMsg").text("");
-        if (name === "" || name.length > 100) {
-            $("#nameMsg").text("Please enter a name with 1 to 100 characters.");
-            valid = false;
-        }
-        if (!valid) {
+        } else if (name == "" || name.length > 100) {
+            $("#nameMsg").html("Please enter a name with 1 to 100 characters.");
             event.preventDefault();
         }
     });
