@@ -2,10 +2,9 @@
 // Start the session
 session_start();
 
-// Only accept the sign up form
+// Only accept the sign up form (Lab 8: POST only)
 if (!isset($_POST["email"])) {
-    header("Location: signup.php");
-    exit;
+    exit("error|POST only.");
 }
 
 // Get the form values
@@ -16,33 +15,33 @@ $confirmPassword = $_POST["confirmPassword"];
 
 // Check if any field is empty
 if ($name === "" || $email === "" || $password === "" || $confirmPassword === "") {
-    exit("Please fill in all fields.");
+    exit("error|Please fill in all fields.");
 }
 
 // Check the name length
 if (strlen($name) > 100) {
-    exit("Name must not exceed 100 characters.");
+    exit("error|Name must not exceed 100 characters.");
 }
 
 // Validate the email address
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 100) {
-    exit("Please enter a valid email address.");
+    exit("error|Please enter a valid email address.");
 }
 
 // Check the password length
 if (strlen($password) < 8) {
-    exit("Password must be at least 8 characters.");
+    exit("error|Password must be at least 8 characters.");
 }
 
 // Check if the passwords match
 if ($password !== $confirmPassword) {
-    exit("Passwords do not match.");
+    exit("error|Passwords do not match.");
 }
 
-// Connect to the database
-require_once "db.php";
-
 try {
+    // Connect to the database
+    require_once "db.php";
+
     // Check if the email is already registered
     $check = mysqli_prepare($connection, "SELECT id FROM users WHERE email = ?");
     mysqli_stmt_bind_param($check, "s", $email);
@@ -52,7 +51,7 @@ try {
     mysqli_stmt_close($check);
 
     if ($found) {
-        exit("This email is already registered.");
+        exit("error|This email is already registered.");
     }
 
     // Hash the password before saving it
@@ -64,13 +63,13 @@ try {
     mysqli_stmt_execute($insert);
     mysqli_stmt_close($insert);
 
-    // Redirect to the login page
-    header("Location: login.php?registered=1");
+    // Return the result so it appears inside the sign up form
+    echo "success|Account created successfully. Please use Log In below.";
     exit;
 
 } catch (mysqli_sql_exception $e) {
 
     // Show a general message if registration fails
-    exit("Registration failed. Please try again later.");
+    exit("error|Registration failed. Please try again later.");
 }
 ?>

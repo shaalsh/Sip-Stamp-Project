@@ -4,7 +4,7 @@
 
 session_start();
 
-// Lab 8: only a logged-in user can open this page
+// Check the login session before opening this page
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     exit;

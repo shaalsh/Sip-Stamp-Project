@@ -2,10 +2,9 @@
 // Start the session
 session_start();
 
-// Only accept the log in form
+// Only accept the log in form (Lab 8: POST only)
 if (!isset($_POST["email"])) {
-    header("Location: login.php");
-    exit;
+    exit("error|POST only.");
 }
 
 // Get the form values
@@ -14,12 +13,12 @@ $password = $_POST["password"];
 
 // Check if the fields are empty
 if ($email === "" || $password === "") {
-    exit("Please fill in all fields.");
+    exit("error|Please fill in all fields.");
 }
 
 // Validate the email address
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    exit("Please enter a valid email address.");
+    exit("error|Please enter a valid email address.");
 }
 
 try {
@@ -36,19 +35,19 @@ try {
 
     // Check the password
     if (!$found || !password_verify($password, $hashedPassword)) {
-        exit("Invalid email or password.");
+        exit("error|Invalid email or password.");
     }
 
     // Save the user in the session
     $_SESSION["user_id"] = $userId;
 
-    // Redirect to the dashboard
-    header("Location: dashboard.php");
+    // Return the login status so JavaScript can open the dashboard
+    echo "success|Logged in successfully.";
     exit;
 
 } catch (mysqli_sql_exception $e) {
 
     // Show a general message if the database fails
-    exit("Unable to log in. Please try again later.");
+    exit("error|Unable to log in. Please try again later.");
 }
 ?>

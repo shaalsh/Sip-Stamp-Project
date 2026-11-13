@@ -53,7 +53,7 @@ if (isset($_SESSION["user_id"])) {
                    name="confirmPassword" required>
 
             <!-- Validation message -->
-            <p id="signupMsg" class="msg"></p>
+            <div id="signupMsg" class="msg"></div>
 
             <button type="submit" class="auth-btn">
                 Create Account
@@ -68,7 +68,8 @@ if (isset($_SESSION["user_id"])) {
 
     </div>
 
-    <!-- Lab 8: load the script before </body> so the form already exists -->
+    <!-- Lab 8: load jQuery and the script before </body> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="auth.js"></script>
 </body>
 </html>
