@@ -37,6 +37,7 @@ $(document).ready(function () {
                     result.addClass("success");
                     result.html(parts[1]);
                     document.getElementById("signupForm").reset();
+                    window.location.href = "login.php?registered=1";
                 } else {
                     result.addClass("failure");
                     result.html(parts[1]);
