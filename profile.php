@@ -17,13 +17,11 @@ if (isset($_POST["name"])) {
     if ($message == "") {
         try {
             // Prepare an update for only the name column in users where id matches the current account
-            $statement = mysqli_prepare($connection, "UPDATE users SET name = ? WHERE id = ?");
-            // Bind the new name as text and the current account id as an integer
-            mysqli_stmt_bind_param($statement, "si", $name, $userId);
-            mysqli_stmt_execute($statement);
-            mysqli_stmt_close($statement);
+            $statement = $memberConnection->prepare("UPDATE users SET name = ? WHERE id = ?");
+            // Save the submitted name only for the account in this session
+            $statement->execute(array($name, $userId));
         // Handle a MySQL error instead of leaving the request without a page message
-        } catch (mysqli_sql_exception $exception) {
+        } catch (PDOException $exception) {
             $message = "Your changes could not be saved. Please try again.";
         }
 
@@ -51,7 +49,7 @@ include "header.php";
         <p class="error"><?php echo passportEscape($message); ?></p>
     <?php } ?>
 
-    <form id="profileForm" class="card profile-form" action="profile.php" method="post" novalidate>
+    <form id="profileForm" class="card profile-form" action="profile.php" method="post">
         <div class="profile-avatar">
             <?php echo passportIcon("cup"); ?>
         </div>
@@ -61,14 +59,15 @@ include "header.php";
             <?php if ($message != "") { ?>
                 <input type="text" id="name" name="name" maxlength="100" class="profile-field name-editing" value="<?php echo passportEscape($name); ?>">
             <?php } else { ?>
-                <input type="text" id="name" name="name" maxlength="100" class="profile-field" readonly value="<?php echo passportEscape($name); ?>">
+                <span id="nameDisplay" class="profile-field"><?php echo passportEscape($name); ?></span>
+                <input type="text" id="name" name="name" maxlength="100" class="profile-field save-hidden" value="<?php echo passportEscape($name); ?>">
             <?php } ?>
             <span id="nameMsg" class="msg"></span>
         </p>
         <p>
             <label for="accountEmail">Email address</label>
-            <!-- Display the email column from users as read only and omit a field name so it is not submitted -->
-            <input type="email" id="accountEmail" class="profile-field fixed-email" value="<?php echo passportEscape($user["email"]); ?>" readonly>
+            <!-- Show the email column from users as text inside its box -->
+            <span id="accountEmail" class="profile-field fixed-email"><?php echo passportEscape($user["email"]); ?></span>
         </p>
         <?php if ($message != "") { ?>
             <button type="submit" class="btn" id="saveProfile">Save Changes</button>

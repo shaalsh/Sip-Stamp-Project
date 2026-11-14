@@ -5,11 +5,11 @@ if (!isset($_SESSION["user_id"])) {
     // Tell the AJAX script to open the login page instead of showing account data
     exit("login");
 }
-require_once "db.php";
+require_once "passport_connection.php";
 require_once "CoffeePassport.php";
 require_once "passport_helpers.php";
 
-$passport = new CoffeePassport($connection, $_SESSION["user_id"]);
+$passport = new CoffeePassport($memberConnection, $_SESSION["user_id"]);
 // Get this user's experience count different cafe count and stamp count
 $stats = $passport->getStats();
 // Check whether AJAX requested the full passport rather than the dashboard summary

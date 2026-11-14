@@ -34,8 +34,11 @@ if ($remaining < 0) {
         </div>
     </div>
 <?php } ?>
-<!-- Store this user's totals in HTML attributes so AJAX can update the dashboard numbers -->
-<div class="card passport-progress" data-experiences="<?php echo $stats["experiences"]; ?>" data-cafes="<?php echo $stats["cafes"]; ?>" data-stamps="<?php echo $stats["stamps"]; ?>">
+<!-- Keep the totals in hidden inputs for the AJAX dashboard update -->
+<input type="hidden" id="totalExperiences" value="<?php echo $stats["experiences"]; ?>">
+<input type="hidden" id="totalCafes" value="<?php echo $stats["cafes"]; ?>">
+<input type="hidden" id="totalStamps" value="<?php echo $stats["stamps"]; ?>">
+<div class="card passport-progress">
     <div class="stamp-totals">
         <div class="stamp-total">
             <strong><?php echo $stats["stamps"]; ?></strong>

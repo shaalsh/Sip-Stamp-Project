@@ -1,6 +1,6 @@
 .member-panel { min-height: 630px; border: none; }
 .member-page #sidebar { border: none; }
-.member-panel .card { border: none; box-shadow: none; }
+.member-panel .card { border: none; }
 .member-panel .passport-icon { width: 25px; height: 27px; vertical-align: middle; border: none; }
 .member-panel .stats-row { overflow: hidden; margin: 25px -1% 5px; }
 /* Place the three statistic cards next to each other using floats and equal widths */
@@ -46,7 +46,5 @@
 .member-panel .profile-form .profile-field { display: block; box-sizing: border-box; width: 100%; padding: 10px 12px; margin-top: 7px; border: none; border-radius: 8px; background: white; color: #4a3226; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
 /* Change the name field background while editing is enabled */
 .member-panel .profile-form input.name-editing { background: #f1dccf; }
-.member-panel .profile-form .save-hidden { display: none; }   /* shown by passport.js after clicking the pencil */
+.member-panel .profile-form .save-hidden { display: none; }   /* Show the save button after clicking the pencil */
 .member-panel .profile-form small, .member-panel .profile-form .msg { display: block; margin-top: 6px; line-height: 1.5; }
-.member-panel a:focus, .member-panel button:focus { outline: 2px solid #6f4630; }
-.member-panel .profile-form .profile-field:focus { outline: none; }

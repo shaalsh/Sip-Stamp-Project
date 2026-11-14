@@ -34,7 +34,8 @@ include "header.php";
 
     <h3>Passport Progress</h3>
     <!-- Create the section AJAX will refresh and identify it as the dashboard view -->
-    <div id="passportContent" data-view="dashboard">
+    <input type="hidden" id="passportView" value="dashboard">
+    <div id="passportContent">
         <?php $passportView = "dashboard"; include "passport_content.php"; ?>
     </div>
     <p class="progress-actions passport-actions">

@@ -11,7 +11,8 @@ include "header.php";
     <h2>My Passport</h2>
     <p class="hint">One experience, one stamp. Keep track of your coffee journey.</p>
     <!-- Create the section AJAX will refresh and identify it as the full passport view -->
-    <div id="passportContent" data-view="passport">
+    <input type="hidden" id="passportView" value="passport">
+    <div id="passportContent">
         <?php $passportView = "passport"; include "passport_content.php"; ?>
     </div>
     <p class="progress-actions passport-actions">
