@@ -1,25 +1,30 @@
 $(document).ready(function () {
-    // Define the function that refreshes the passport totals using AJAX
-    function refreshProgress() {
-        // Send the selected view to progress PHP using AJAX and receive the updated HTML
-        $.get("progress.php", { view: $("#passportView").val() }, function (data) {
-            // Check whether the server says the user must log in again
+    // Load or hide the passport stamps when the dashboard link is clicked
+    $("#viewPassport").click(function (event) {
+        event.preventDefault();
+        var view = "passport";
+        if ($("#passportView").val() == "passport") {
+            view = "dashboard";
+        }
+
+        // Request the selected passport view without reloading the dashboard
+        $.get("progress.php", { view: view }, function (data) {
             if (data == "login") {
                 window.location.href = "login.php";
                 return;
             }
-            // Replace the passport section with the new HTML returned by PHP
             $("#passportContent").html(data);
             $("#experienceCount").html($("#totalExperiences").val());
             $("#cafeCount").html($("#totalCafes").val());
             $("#stampCount").html($("#totalStamps").val());
+            $("#passportView").val(view);
+            if (view == "passport") {
+                $("#viewPassport").html("Hide Passport");
+            } else {
+                $("#viewPassport").html("View Passport");
+            }
         });
-    }
-
-    if ($("#passportContent").length > 0) {
-        // Read the latest totals when this page opens
-        refreshProgress();
-    }
+    });
 
     // Run these instructions when the profile pencil button is clicked
     $("#editName").click(function () {

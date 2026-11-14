@@ -33,13 +33,13 @@ include "header.php";
     </div>
 
     <h3>Passport Progress</h3>
-    <!-- Create the section AJAX will refresh and identify it as the dashboard view -->
+    <!-- Start with the summary and let AJAX display the stamp details when requested -->
     <input type="hidden" id="passportView" value="dashboard">
     <div id="passportContent">
         <?php $passportView = "dashboard"; include "passport_content.php"; ?>
     </div>
     <p class="progress-actions passport-actions">
-        <a href="passport.php" class="btn">View Passport</a>
+        <a href="passport.php" id="viewPassport" class="btn">View Passport</a>
     </p>
     <p id="progressMessage" class="hint"></p>
 

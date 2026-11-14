@@ -10,8 +10,7 @@ include "header.php";
 <section class="panel member-panel">
     <h2>My Passport</h2>
     <p class="hint">One experience, one stamp. Keep track of your coffee journey.</p>
-    <!-- Create the section AJAX will refresh and identify it as the full passport view -->
-    <input type="hidden" id="passportView" value="passport">
+    <!-- Display the full passport using the current account data -->
     <div id="passportContent">
         <?php $passportView = "passport"; include "passport_content.php"; ?>
     </div>
