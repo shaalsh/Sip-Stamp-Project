@@ -65,7 +65,7 @@ include "header.php";
             <span id="nameMsg" class="msg"></span>
         </p>
         <p>
-            <label for="accountEmail">Email address</label>
+            <span class="field-title">Email address</span>
             <!-- Show the email column from users as text inside its box -->
             <span id="accountEmail" class="profile-field fixed-email"><?php echo passportEscape($user["email"]); ?></span>
         </p>

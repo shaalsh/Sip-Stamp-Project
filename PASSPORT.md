@@ -1,36 +1,30 @@
 # Dashboard Passport and Profile
 
-## Local setup
+## Setup
 
-Follow `LOCAL_SETUP.md` to prepare the local database and `config.php`. The pages use the shared connection in `db.php` and the logged in account id in the session. No additional PHP package is needed for these pages.
+Follow `LOCAL_SETUP.md` to prepare the database and local `config.php` settings. These pages use PDO through `passport_connection.php`. Other project pages use MySQLi through `db.php`. Both connections read the same settings and use the same database.
 
-## Pages and shared files
+## Files
 
-- `dashboard.php` shows experience totals different cafes visited collected stamps and the latest three experiences
-- `passport.php` displays the passport through `passport_content.php`
-- `profile.php` displays the account name and email and updates only `users.name` with a prepared statement filtered by the logged in user id
-- `CoffeePassport.php` reads statistics recent experiences and stamps using prepared MySQLi statements
+- `dashboard.php` displays experience totals different cafes visited collected stamps and the latest three experiences
+- `passport.php` displays the coffee passport
+- `profile.php` displays the account name and email and allows the logged in user to update only their name
+- `CoffeePassport.php` reads statistics recent experiences and stamps using prepared PDO statements
+- `passport_connection.php` opens the PDO connection using the local settings
 - `passport_bootstrap.php` checks the login session and loads the account
-- `passport_helpers.php` escapes displayed text and returns local image tags for icons
-- `progress.php` returns the current passport HTML for AJAX requests and returns `login` when the session has ended
-- `passport.js` refreshes passport data when the page opens and when the browser window receives focus again and handles the profile pencil and name validation
-- `member.css` keeps the desktop layout and uses floats and simple classes
-- `images/icons` contains the five transparent PNG icons used by these pages
+- `passport_content.php` builds the passport HTML and stamp totals
+- `passport_helpers.php` escapes displayed text and returns local icon image tags
+- `progress.php` returns passport HTML for AJAX requests and returns `login` when the session has ended
+- `passport.js` requests updated passport data when the page opens and handles the profile pencil and name validation
+- `member.css` defines the member page layout and appearance
+- `images/icons` contains the local PNG icons
 
-## Current behavior
+## Behavior
 
-The passport has no timed refresh and no refresh button. It uses AJAX when the page opens and when the user returns focus to it. Normal navigation to the page also reads the current data from MySQL.
+Each saved experience has one linked stamp. Editing an experience does not add a stamp and deleting it removes its stamp. The passport displays the latest ten stamps while the total can exceed ten. The first badge is earned at ten stamps. Dates are displayed as stored in the database.
 
-Dates are shown as stored in the database including the time. Each saved experience has one linked stamp. Editing the experience does not add a stamp and deleting the experience removes its stamp. The passport shows the latest ten stamps while its total can exceed ten.
+The initial page request reads the current database values. Once the page is ready AJAX requests the passport section and updates the displayed totals. There is no refresh timer or window focus handler. To see changes made elsewhere after this request open the page again.
 
-Profile updates use the login session a POST form an empty name check a prepared update a session message and a redirect after saving. HTML maxlength and JavaScript limit the name to 100 characters and the MySQL name column is VARCHAR(100). The email is read only and is not updated by the handler.
+The profile displays the email as text inside a box. The pencil reveals the name input and Save Changes button. PHP checks for an empty name and uses a prepared update restricted to the account ID in the session. After saving it stores a session message and redirects to the profile page. HTML and JavaScript limit the input to 100 characters and the database column is VARCHAR(100).
 
-The additional profile form token was removed as requested. The simplified profile form no longer performs that additional token check.
-
-The additional narrow screen layout rules were removed. The desktop presentation layout remains the target for these pages.
-
-## Verification
-
-The current pages passed HTTP checks with two temporary accounts on real local MySQL for registration login favorites experience creation and editing deletion of experiences and stamps isolated account data badge totals Arabic profile names and logout protection. The test accounts and their related rows were removed afterwards.
-
-Browser checks verified loading all PNG icons enabling name editing keeping email fixed saving an Arabic name and displaying the passport with saved dates. The AJAX script was checked to run on initial setup and on the window focus event without a timer.
+`database.sql` includes the stamps table and starter records. `stamps.sql` is an optional migration for an older existing database that is missing stamps. It is not required after importing `database.sql` and is not executed by the website.
