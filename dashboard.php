@@ -50,13 +50,13 @@ include "header.php";
     <?php } else { ?>
         <div class="card recent-list">
             <!-- Repeat the following HTML for each of the latest three experiences -->
-            <?php foreach ($recentExperiences as $experience) { ?>
-                <article class="recent-row">
+            <?php foreach ($recentExperiences as $index => $experience) { ?>
+                <article class="recent-row <?php if ($index == count($recentExperiences) - 1) { echo 'last-row'; } ?>">
                     <?php echo passportIcon("cup"); ?>
                     <div class="recent-details">
                         <h3><?php echo passportEscape($experience["name"]); ?></h3>
                         <p><?php echo passportEscape($experience["drink"]); ?></p>
-                        <p class="experience-date"><?php echo passportEscape(date("d M Y", strtotime($experience["date"]))); ?></p>
+                        <p class="experience-date"><?php echo passportEscape($experience["date"]); ?></p>
                         <span class="hint"><?php echo (int) $experience["stars"]; ?> / 5 stars</span>
                     </div>
                 </article>

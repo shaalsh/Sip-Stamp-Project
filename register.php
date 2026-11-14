@@ -18,11 +18,6 @@ if ($name === "" || $email === "" || $password === "" || $confirmPassword === ""
     exit("error|Please fill in all fields.");
 }
 
-// Check the name length
-if (mb_strlen($name) > 100) {
-    exit("error|Name must not exceed 100 characters.");
-}
-
 // Validate the email address
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 100) {
     exit("error|Please enter a valid email address.");

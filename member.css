@@ -1,7 +1,7 @@
 .member-panel { min-height: 630px; border: none; }
 .member-page #sidebar { border: none; }
 .member-panel .card { border: none; box-shadow: none; }
-.member-panel .passport-icon { width: 25px; height: 27px; vertical-align: middle; color: #6f4630; }
+.member-panel .passport-icon { width: 25px; height: 27px; vertical-align: middle; border: none; }
 .member-panel .stats-row { overflow: hidden; margin: 25px -1% 5px; }
 /* Place the three statistic cards next to each other using floats and equal widths */
 .member-panel .stat-card { float: left; box-sizing: border-box; width: 31.33%; margin: 0 1% 18px; padding: 20px; }
@@ -21,9 +21,8 @@
 /* Make passport action buttons extend across the full row */
 .member-panel .passport-actions .btn { width: 100%; margin-right: 0; }
 .member-panel a.btn.small { display: inline-block; box-sizing: border-box; margin-left: 0; }
-.member-panel button:disabled { opacity: 0.6; cursor: wait; }
 .member-panel .recent-row { padding: 15px 0; border-bottom: 1px solid #ead8cc; overflow: hidden; }
-.member-panel .recent-row:last-child { border-bottom: none; }
+.member-panel .recent-row.last-row { border-bottom: none; }
 .member-panel .recent-row > .passport-icon { float: left; margin: 5px 18px 0 0; }
 .member-panel .recent-details { margin-left: 45px; }
 .member-panel .recent-details h3 { margin: 0 0 6px; font-size: 18px; }
@@ -31,7 +30,7 @@
 .member-panel .recent-details .experience-date { color: #8a7064; font-size: 12px; }
 .member-panel .stamp-list { overflow: hidden; margin: 0 -1%; }
 /* Place five stamp slots per row with equal widths rounded corners and centred text */
-.member-panel .stamp-slot { float: left; box-sizing: border-box; width: 18%; min-height: 120px; margin: 10px 1%; border: none; border-radius: 12px; padding: 15px 5px; text-align: center; overflow-wrap: anywhere; }
+.member-panel .stamp-slot { float: left; box-sizing: border-box; width: 18%; min-height: 120px; margin: 10px 1%; border: none; border-radius: 12px; padding: 15px 5px; text-align: center; }
 .member-panel .earned-stamp { background: #f1dccf; }
 .member-panel .empty-stamp { background: #fdf8f4; }
 .member-panel .stamp-slot strong, .member-panel .stamp-slot small { display: block; margin-top: 8px; font-size: 12px; }
@@ -43,34 +42,11 @@
 .member-panel .profile-avatar { width: 76px; height: 76px; border-radius: 50%; background: #f1dccf; overflow: hidden; text-align: center; line-height: 76px; font-family: Georgia, Cambria, serif; font-size: 30px; }
 /* Style the pencil as a small brown square button on the right */
 .member-panel .edit-name-btn { float: right; width: 30px; height: 30px; padding: 5px; margin-top: -8px; border: none; border-radius: 8px; background: #6f4630; color: white; cursor: pointer; }
-.member-panel .edit-name-btn .passport-icon { width: 20px; height: 20px; color: white; }
-.member-panel .profile-form input:not([type="hidden"]) { display: block; box-sizing: border-box; width: 100%; padding: 10px 12px; margin-top: 7px; border: none; border-radius: 8px; background: white; color: #4a3226; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+.member-panel .edit-name-btn .passport-icon { width: 20px; height: 20px; }
+.member-panel .profile-form .profile-field { display: block; box-sizing: border-box; width: 100%; padding: 10px 12px; margin-top: 7px; border: none; border-radius: 8px; background: white; color: #4a3226; font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
 /* Change the name field background while editing is enabled */
 .member-panel .profile-form input.name-editing { background: #f1dccf; }
 .member-panel .profile-form .save-hidden { display: none; }   /* shown by passport.js after clicking the pencil */
-.member-panel .profile-form input:focus-visible { outline: none; }
 .member-panel .profile-form small, .member-panel .profile-form .msg { display: block; margin-top: 6px; line-height: 1.5; }
-.member-panel a:focus-visible, .member-panel button:focus-visible, .member-panel input:focus-visible { outline: 2px solid #6f4630; outline-offset: 3px; }
-
-/* Apply the following layout changes on screens up to eight hundred pixels wide */
-@media (max-width: 800px) {
-    .member-page #sidebar { float: none; width: auto; min-height: 0; margin: 15px; }
-    .member-page #sidebar li { display: inline-block; }
-    .member-page main { margin: 15px; }
-    .member-panel { padding: 22px 18px; min-height: 0; }
-    /* Reduce the padding inside statistic cards on narrower screens */
-    .member-panel .stat-card { padding: 12px; }
-    .member-panel .stat-card .passport-icon { float: none; display: block; margin: 0 0 10px; }
-    /* Display three stamp slots per row on narrower screens */
-    .member-panel .stamp-slot { width: 31.33%; }
-}
-
-/* Apply the following layout changes on screens up to five hundred and twenty pixels wide */
-@media (max-width: 520px) {
-    /* Place each statistic card across almost the full row on small screens */
-    .member-panel .stat-card { width: 98%; padding: 16px; }
-    .member-panel .stat-card .passport-icon { float: left; margin: 7px 14px 0 0; }
-    /* Display two stamp slots per row on small screens */
-    .member-panel .stamp-slot { width: 48%; }
-    .member-panel .progress-actions .btn { width: 100%; margin-right: 0; }
-}
+.member-panel a:focus, .member-panel button:focus { outline: 2px solid #6f4630; }
+.member-panel .profile-form .profile-field:focus { outline: none; }

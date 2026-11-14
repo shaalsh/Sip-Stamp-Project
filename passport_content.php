@@ -22,7 +22,7 @@ if ($remaining < 0) {
                 <div class="stamp-slot earned-stamp">
                     <?php echo passportIcon("cup"); ?>
                     <strong><?php echo passportEscape($stamp["name"]); ?></strong>
-                    <small><?php echo passportEscape(date("d M Y", strtotime($stamp["stamped_at"]))); ?></small>
+                    <small><?php echo passportEscape($stamp["stamped_at"]); ?></small>
                 </div>
             <?php } ?>
             <!-- Add empty slots until the passport contains ten visible slots -->

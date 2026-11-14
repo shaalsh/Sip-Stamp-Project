@@ -17,8 +17,9 @@ $(document).ready(function () {
     }
 
     if ($("#passportContent").length > 0) {
-        // Run the refresh function every fifteen thousand milliseconds which is fifteen seconds
-        setInterval(refreshProgress, 15000);
+        // Read the latest totals when the page opens and when the user returns to it
+        refreshProgress();
+        window.onfocus = refreshProgress;
     }
 
     // Run these instructions when the profile pencil button is clicked

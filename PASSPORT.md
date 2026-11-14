@@ -1,49 +1,36 @@
-# Passport, Dashboard and Profile
+# Dashboard Passport and Profile
 
-These pages use Lama's `header.php` and `style.css`. Extra styles in `member.css` only apply to the new pages. There are no extra packages to install.
+## Local setup
 
-## Run locally
+Follow `LOCAL_SETUP.md` to prepare the local database and `config.php`. The pages use the shared connection in `db.php` and the logged in account id in the session. No additional PHP package is needed for these pages.
 
-1. Follow `LOCAL_SETUP.md` and import `database.sql` once into a new local setup. It creates `sip_stamp` with all five tables and sample data and does not drop existing tables. Do not reimport over an existing populated database.
-2. Copy `config.example.php` to the local `config.php` and match `DBPORT` to the MySQL port on that computer. Do not upload `config.php` to GitHub. The former online hosting account expired and the current setup uses local MySQL.
-3. Sign in through `login.php` or create an account through `signup.php`. Member pages read `$_SESSION["user_id"]` from the login module and never create a demo session even if an old local configuration still defines `DEMO_USER_ID`.
-4. Run `php -S localhost:8000` in the project folder, then open `http://localhost:8000/dashboard.php`.
-5. PHP needs MySQLi and mbstring. No profile upload folder or image-upload settings are needed.
+## Pages and shared files
 
-## Files and database columns
+- `dashboard.php` shows experience totals different cafes visited collected stamps and the latest three experiences
+- `passport.php` displays the passport through `passport_content.php`
+- `profile.php` displays the account name and email and updates only `users.name` with a prepared statement filtered by the logged in user id
+- `CoffeePassport.php` reads statistics recent experiences and stamps using prepared MySQLi statements
+- `passport_bootstrap.php` checks the login session and loads the account
+- `passport_helpers.php` escapes displayed text and returns local image tags for icons
+- `progress.php` returns the current passport HTML for AJAX requests and returns `login` when the session has ended
+- `passport.js` refreshes passport data when the page opens and when the browser window receives focus again and handles the profile pencil and name validation
+- `member.css` keeps the desktop layout and uses floats and simple classes
+- `images/icons` contains the five transparent PNG icons used by these pages
 
-- `dashboard.php`: counts experiences, distinct cafés visited and stamps for the signed-in user; shows the latest three experiences.
-- `passport.php`: shows the latest ten stamps, the total collected and a short message about the first badge at ten stamps. This is an in-app achievement, not a café discount.
-- `CoffeePassport.php`: a PHP class with methods for statistics, recent experiences and stamps. It uses prepared MySQLi statements.
-- `progress.php`, `passport_content.php`, `passport.js`: jQuery AJAX refreshes the stamp list and totals automatically without reloading the page. It checks every 15 seconds while the page is visible and immediately when the user returns to the tab/window. There is no refresh button. The recent-experience list refreshes on a normal page load.
-- `profile.php`: updates only `users.name`, always using the session's user ID. The email is displayed in a read-only box and cannot be edited through this page. A letter from the user's name is shown in a circle. Profile photo upload was removed to keep the feature within the agreed course scope. The existing `users.profile_pic` column and any saved image paths are left unchanged.
-- `add_experience.php`: inserts the experience and one stamp in a transaction. `stamps.experience_id` refers to `experiences.id`, and the unique key prevents a second stamp for the same experience. Editing a rating does not add a stamp; deleting the experience removes the stamp through the foreign key.
+## Current behavior
 
-`db.php` connects using the local database port and does not create a login session. Member pages redirect signed-out users to `login.php` before loading account data. The progress endpoint returns 401 without a valid session and its AJAX client opens the login page. Member responses use `Cache-Control: no-store`. Experience and cafe pages require their own authentication integration checks.
+The passport has no timed refresh and no refresh button. It uses AJAX when the page opens and when the user returns focus to it. Normal navigation to the page also reads the current data from MySQL.
 
-The `explore-favorites-Tala` branch is merged into main. Cafe and favorites pages use the shared header and database connection and require Retal's login session through `require_login.php`. The favorite endpoint accepts POST only and returns 401 after logout. Cafe styles are loaded only on the two cafe pages.
+Dates are shown as stored in the database including the time. Each saved experience has one linked stamp. Editing the experience does not add a stamp and deleting the experience removes its stamp. The passport shows the latest ten stamps while its total can exceed ten.
 
-The local distribution database was restored and checked on XAMPP port 3307 with 14 cafes and two experiences with two stamps. HTTP integration checks registered and logged in two temporary accounts and verified independent favorite lists and removals, member statistics, profile name updates and logout protection. Test accounts and their related data were removed after the checks. Future authentication schema changes must be coordinated with the team.
+Profile updates use the login session a POST form an empty name check a prepared update a session message and a redirect after saving. HTML maxlength and JavaScript limit the name to 100 characters and the MySQL name column is VARCHAR(100). The email is read only and is not updated by the handler.
 
-The experience edit page now places Save Changes and Cancel on the same row. Ratings on My Experiences are display-only and are changed through Edit and Save Changes. The old direct rating endpoint no longer updates ratings.
+The additional profile form token was removed as requested. The simplified profile form no longer performs that additional token check.
 
-## Review completed locally
+The additional narrow screen layout rules were removed. The desktop presentation layout remains the target for these pages.
 
-- All PHP files passed syntax checks, and `passport.js` passed the JavaScript syntax check.
-- The actual passport class and view passed checks for empty accounts, separate user totals, distinct café counts, stamp backfill without duplicates, the ten-stamp goal and cascading deletion. These checks used a local SQLite query adapter, not a live MySQL connection.
-- HTTP checks ran the actual profile and add-experience handlers with the local adapter. Profile validation, form token checks, user isolation and paired experience/stamp inserts were checked. Photo upload is no longer part of the profile feature.
-- Dashboard, Passport and Profile were visually checked in a browser. AJAX refresh and client-side profile validation were checked there too. The narrow-screen statistics cards were adjusted so their text remains visible.
-- The real MySQL connection, table structure, cascading stamp relationship and passport queries were checked successfully. The user also verified that adding an experience creates its stamp and deleting that test experience removes the stamp. The simulated review server uses separate sample data only.
+## Verification
 
-The main programming approach follows the course topics: HTML forms, external CSS with floats, JavaScript validation and DOM updates, PHP functions/classes/sessions, prepared MySQLi queries, transactions and jQuery AJAX. Session-bound form-token helpers protect profile updates; these individual helper functions may need additional explanation beyond the slide examples.
+The current pages passed HTTP checks with two temporary accounts on real local MySQL for registration login favorites experience creation and editing deletion of experiences and stamps isolated account data badge totals Arabic profile names and logout protection. The test accounts and their related rows were removed afterwards.
 
-## Check the finished flow
-
-- Check a user with no experiences: zero totals, empty stamp slots, no badge.
-- Add an experience: exactly one new stamp and increased totals. Edit its rating: no extra stamp. Delete it: its stamp disappears.
-- Keep the passport open, then add an experience elsewhere. Return to the passport (or wait up to 15 seconds while it is visible): the new stamp appears without a page reload or refresh button.
-- Reach ten stamps: the badge is earned. At more than ten, the total continues increasing and the latest ten stamps remain visible. Progress is shown as plain text, without a progress bar.
-- Save a name: only `users.name` should change; the email and existing profile photo data must stay unchanged. No file input or editable email input should appear on the page.
-- With JavaScript available, the name starts read-only and Save Changes is hidden. Clicking the pencil enables the name and reveals Save Changes. The email appears in a matching read-only input without a submitted field name; it cannot be updated by the handler. Without JavaScript, the normal name form remains usable.
-- Try an empty name, a name longer than 100 characters and a form with a missing/incorrect token: no profile change should be saved. Sending an extra email field manually must not change the account email.
-- Switch to another user: their profile, counts and stamps must be separate. Signed-out member pages redirect to login and signed-out progress requests return 401.
+Browser checks verified loading all PNG icons enabling name editing keeping email fixed saving an Arabic name and displaying the passport with saved dates. The AJAX script was checked to run on initial setup and on the window focus event without a timer.

@@ -5,22 +5,13 @@ require_once "passport_bootstrap.php";
 $message = "";
 $name = $user["name"];
 
-// Check whether this session already has a profile form token
-if (!isset($_SESSION["profile_token"])) {
-    // Create a random token and keep it in the session for checking profile submissions
-    $_SESSION["profile_token"] = bin2hex(random_bytes(32));
-}
-
 // Process the profile form only after a name has been submitted
 if (isset($_POST["name"])) {
     $name = trim($_POST["name"]);
 
-    // Check that the submitted form token matches the one in this login session
-    if (!isset($_POST["profile_token"]) || !hash_equals($_SESSION["profile_token"], $_POST["profile_token"])) {
-        $message = "Please reload the page and try again.";
-    // Reject an empty name or a name longer than one hundred characters including Arabic
-    } else if ($name == "" || mb_strlen($name) > 100) {
-        $message = "Please enter a name with 1 to 100 characters.";
+    // Check that the submitted name is not empty before updating users
+    if ($name == "") {
+        $message = "Please enter your name.";
     }
 
     if ($message == "") {
@@ -61,8 +52,6 @@ include "header.php";
     <?php } ?>
 
     <form id="profileForm" class="card profile-form" action="profile.php" method="post" novalidate>
-        <!-- Send the session token with the form so PHP can check that it belongs to this session -->
-        <input type="hidden" name="profile_token" value="<?php echo passportEscape($_SESSION["profile_token"]); ?>">
         <div class="profile-avatar">
             <?php echo passportIcon("cup"); ?>
         </div>
@@ -70,16 +59,16 @@ include "header.php";
             <label for="name">Full name</label>
             <button type="button" id="editName" class="edit-name-btn"><?php echo passportIcon("pencil"); ?></button>
             <?php if ($message != "") { ?>
-                <input type="text" id="name" name="name" maxlength="100" class="name-editing" value="<?php echo passportEscape($name); ?>">
+                <input type="text" id="name" name="name" maxlength="100" class="profile-field name-editing" value="<?php echo passportEscape($name); ?>">
             <?php } else { ?>
-                <input type="text" id="name" name="name" maxlength="100" readonly value="<?php echo passportEscape($name); ?>">
+                <input type="text" id="name" name="name" maxlength="100" class="profile-field" readonly value="<?php echo passportEscape($name); ?>">
             <?php } ?>
             <span id="nameMsg" class="msg"></span>
         </p>
         <p>
             <label for="accountEmail">Email address</label>
             <!-- Display the email column from users as read only and omit a field name so it is not submitted -->
-            <input type="email" id="accountEmail" class="fixed-email" value="<?php echo passportEscape($user["email"]); ?>" readonly>
+            <input type="email" id="accountEmail" class="profile-field fixed-email" value="<?php echo passportEscape($user["email"]); ?>" readonly>
         </p>
         <?php if ($message != "") { ?>
             <button type="submit" class="btn" id="saveProfile">Save Changes</button>
